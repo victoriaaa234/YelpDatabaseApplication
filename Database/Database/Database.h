@@ -27,16 +27,6 @@ namespace Database
 		DATABASE_API std::vector<std::string> listTables();
 		DATABASE_API std::map<std::string, Table> getTables();
 		DATABASE_API Table query(std::string select, std::string from, std::string where);
-
-
-		// Returns a + b  
-		//static MATHLIBRARY_API double Add(double a, double b);
-
-		// Returns a * b  
-		//static MATHLIBRARY_API double Multiply(double a, double b);
-
-		// Returns a + (a * b)  
-		//static MATHLIBRARY_API double AddMultiply(double a, double b);
 	};
 
 	struct tblIterator {
