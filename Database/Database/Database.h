@@ -65,6 +65,10 @@ namespace Database
 	class Record
 	{
 	public:
+		DATABASE_API Record();
+		DATABASE_API Record(std::vector<std::string> name);
+		DATABASE_API unsigned int getSize();
+		DATABASE_API std::string get(int index);
 	};
 
 	
