@@ -1,5 +1,21 @@
 # Team No Wei Log #
 
+## February 11th, 2017
+### General
+Team No Wei completed the API documentation (See commit #c232772e4d76581e5cc0a905ae644e666c7b0428). We noticed a bug in our implementation of the record API. Following the standards defined previously, we created a Github Issue and fixed it accordingly. Overall, Team No Wei has completed Checkpoint 1 and is waiting to submit on eCampus. After submission, we will close Milestone 1. 
+
+### Progress:
+- Kevin - Explained the structure of API, documentation, and code to Victoria and worked on documentation.
+- Victoria - Finished setting up developer environment and understanding code base.
+- Yerania - Completed API documentation.
+
+### TODO:
+- Update the Milestones to contain all issues.
+- Submit ZIP file for Checkpoint 1.
+- Receive code for Checkpoint 2.
+- Review further implementation details required.
+- Plan meeting times and scrum times.
+
 ## Febraury 9th, 2017
 ### General 
 This was our first meeting of Team No Wei to work on this project. 
