@@ -88,7 +88,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>\\blender\homes\k\e\kevinjnguyen07201997\nt\AccountSettings\Desktop\Git\CSCE-315-Database-Project\Database\Database;C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database;\\blender\homes\k\e\kevinjnguyen07201997\nt\AccountSettings\Desktop\Git\CSCE-315-Database-Project\Database\Database;C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <AdditionalUsingDirectories>\\blender\homes\k\e\kevinjnguyen07201997\nt\AccountSettings\Desktop\Git\CSCE-315-Database-Project\Database\Database;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>

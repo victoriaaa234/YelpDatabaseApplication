@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <string>
 
 namespace Database {
 
@@ -17,6 +18,9 @@ namespace Database {
 	};
 
 	class Record {
+	private:
+		std::vector<std::string> record;
+
 	public:
 		DATABASE_API Record(unsigned int size);
 		DATABASE_API unsigned int getSize();
