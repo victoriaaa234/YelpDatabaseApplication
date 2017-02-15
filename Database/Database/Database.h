@@ -10,31 +10,21 @@
 #include <vector>
 #include <map>
 
-namespace Database
-{
-	// This class is exported from the Database.dll  
-	class Database
-	{
-		class Query
-		{
-		public:
-
-		};
-	public:
-		DATABASE_API Database();
-		DATABASE_API bool addTable(Table tbl, std::string name);
-		DATABASE_API bool dropTable(std::string tblName);
-		DATABASE_API std::vector<std::string> listTables();
-		DATABASE_API std::map<std::string, Table> getTables();
-		DATABASE_API Table query(std::string select, std::string from, std::string where);
-	};
+namespace Database {
 
 	struct tblIterator {
-		
+
 	};
 
-	class Table
-	{
+	class Record {
+	public:
+		DATABASE_API Record(unsigned int size);
+		DATABASE_API unsigned int getSize();
+		DATABASE_API bool set(unsigned int index, std::string characteristic);
+		DATABASE_API std::string get(unsigned int index);
+	};
+
+	class Table {
 	public:
 		DATABASE_API Table();
 		DATABASE_API Table(std::vector<std::string> name);
@@ -49,17 +39,20 @@ namespace Database
 		DATABASE_API Table crossJoin(Table tblOne, Table tblTwo);
 		DATABASE_API Table naturalJoin(Table tblOne, Table tblTwo);
 		DATABASE_API std::map<std::string, std::string> routines(std::string name);
-
 	};
 
-	class Record
-	{
+	// This class is exported from the Database.dll
+	class Database {
+		class Query {
+		public:
+
+		};
 	public:
-		DATABASE_API Record(unsigned int size);
-		DATABASE_API unsigned int getSize();
-		DATABASE_API bool set(unsigned int index, std::string characteristic);
-		DATABASE_API std::string get(unsigned int index);
+		DATABASE_API Database();
+		DATABASE_API bool addTable(Table tbl, std::string name);
+		DATABASE_API bool dropTable(std::string tblName);
+		DATABASE_API std::vector<std::string> listTables();
+		DATABASE_API std::map<std::string, Table> getTables();
+		DATABASE_API Table query(std::string select, std::string from, std::string wherever);
 	};
-
-	
 }

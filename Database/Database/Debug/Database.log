@@ -1,2 +1,25 @@
-﻿  Database.vcxproj -> C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.dll
-  Database.vcxproj -> C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.pdb (Full PDB)
+﻿Build started 2/14/2017 10:16:23 PM.
+     1>Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database\Database.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DATABASE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yc"stdafx.h" /Fp"Debug\Database.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DATABASE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\Database.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt Database.cpp Record.cpp Table.cpp
+         Table.cpp
+         Record.cpp
+         Database.cpp
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DATABASE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt dllmain.cpp
+         dllmain.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.lib" /MACHINE:X86 /DLL Debug\Database.obj
+         Debug\dllmain.obj
+         Debug\Record.obj
+         Debug\stdafx.obj
+         Debug\Table.obj
+            Creating library C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.lib and object C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.exp
+         Database.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.dll
+     1>Done Building Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database\Database.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.24
