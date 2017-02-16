@@ -11,15 +11,30 @@ Database::Table::Table() {
 
 Database::Table::Table(std::vector<std::string> name) {
 	std::cout << "Table: One Argument Constructor" << std::endl;
+	attributes = name;
 }
 
 bool Database::Table::addAttribute(std::string name) {
 	std::cout << "Table: Adding Attribute" << std::endl;
-	return false;
+	for (int i = 0; i < attributes.size(); i++) {
+		if (attributes[i] == name) {
+			std::cout << "Attribute name already exists" << std::endl;
+			return false;
+		}
+	}
+	attributes.push_back(name);
+	return true;
 }
 
 bool Database::Table::deleteAttribute(std::string name) {
 	std::cout << "Table: Deleting Attribute" << std::endl;
+	for (int i = 0; i < attributes.size(); i++) {
+		if (attributes[i] == name) {
+			attributes.erase(attributes.begin() + i);
+			return true;
+		}
+	}
+	std::cout << "Attribute name does not exist" << std::endl;
 	return false;
 }
 
@@ -72,9 +87,15 @@ std::map<std::string, std::string> Database::Table::routines(std::string name) {
 
 void Database::Table::testLinkage() {
 	std::vector<std::string> test;
+	test.push_back("Name");
+	test.push_back("Date");
+	test.push_back("City");
+	test.push_back("Country");
 	Table table = Table(test);
-	addAttribute("Hello");
-	deleteAttribute("Hello");
+	std::cout << std::boolalpha << table.addAttribute("Size") << std::endl;
+	std::cout << std::boolalpha << table.addAttribute("Name") << std::endl;
+	std::cout << std::boolalpha << table.deleteAttribute("Size") << std::endl;
+	std::cout << std::boolalpha << table.deleteAttribute("Size") << std::endl;
 	insert(Record(5));
 	getAttributes();
 	getSize();

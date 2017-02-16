@@ -1,3 +1,5 @@
-﻿  Record.cpp
+﻿  Table.cpp
+c:\users\hernandez-tamu\desktop\csce315\csce-315-database-project\database\database\table.cpp(19): warning C4018: '<': signed/unsigned mismatch
+c:\users\hernandez-tamu\desktop\csce315\csce-315-database-project\database\database\table.cpp(31): warning C4018: '<': signed/unsigned mismatch
   Database.vcxproj -> C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.dll
   Database.vcxproj -> C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.pdb (Full PDB)
