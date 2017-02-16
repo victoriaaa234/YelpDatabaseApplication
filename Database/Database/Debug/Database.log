@@ -1,18 +1,13 @@
-<<<<<<< Updated upstream
-﻿  Record.cpp
-  Database.vcxproj -> C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.dll
-  Database.vcxproj -> C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.pdb (Full PDB)
-=======
-﻿Build started 2/15/2017 6:07:01 PM.
+﻿Build started 2/15/2017 6:36:09 PM.
      1>Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database\Database.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DATABASE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yc"stdafx.h" /Fp"Debug\Database.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DATABASE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\Database.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt Database.cpp Query.cpp Record.cpp Table.cpp
-         Query.cpp
-     1>c:\users\victoria\desktop\csce315\csce-315-database-project\database\database\query.cpp(26): warning C4018: '<': signed/unsigned mismatch
-         Generating Code...
-         Compiling...
          Table.cpp
          Record.cpp
+         Query.cpp
+     1>c:\users\victoria\desktop\csce315\csce-315-database-project\database\database\query.cpp(26): warning C4018: '<': signed/unsigned mismatch
          Database.cpp
          Generating Code...
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DATABASE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt dllmain.cpp
@@ -32,5 +27,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:05.62
->>>>>>> Stashed changes
+Time Elapsed 00:00:05.07

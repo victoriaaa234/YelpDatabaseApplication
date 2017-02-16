@@ -1,7 +1,2 @@
-<<<<<<< Updated upstream
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
-Debug|Win32|C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\|
-=======
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit
 Debug|Win32|C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\|
->>>>>>> Stashed changes
