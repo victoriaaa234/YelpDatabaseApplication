@@ -49,24 +49,26 @@ namespace Database {
 
 	// This class is exported from the Database.dll
 	class Database {
-		static std::map<std::string, Table> databaseTables;
+		std::map<std::string, Table> databaseTables;
+		std::vector<Record> records;
+		Table table;
+		Table outputTable;
 		class Query {
 			std::vector<std::string> attributes;
 			std::vector<std::string> parsedWhere;
-			std::vector<Record> records;
-			Table table;
-			Table outputTable;
 		public:
 			Query(std::string select, std::string from, std::string wherever);
-			Table findTable(std::string from);
-			void createTable();
-			std::vector<std::string> parseSelect(std::string select);
+			std::vector<std::string> parseSelect(std::string select, Table table);
 			std::vector<std::string> parseWhere(std::string wherever);
-			void addRecords();
-			std::vector<Record> findRecords();
-			Table getOutputTable();
+			std::vector<std::string> getAttributes();
+			std::vector<std::string> getParsedWhere();
 		};
 	public:
+		void createTable();
+		void addRecords();
+		std::vector<Record> findRecords();
+		Table getOutputTable();
+		Table findTable(std::string from);
 		DATABASE_API Database();
 		DATABASE_API bool addTable(Table tbl, std::string name);
 		DATABASE_API bool dropTable(std::string tblName);
