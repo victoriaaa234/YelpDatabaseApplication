@@ -1,0 +1,3 @@
+/Users/kevinjnguyen/CLionProjects/Database/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/kevinjnguyen/CLionProjects/Database/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/kevinjnguyen/CLionProjects/Database/cmake-build-debug/CMakeFiles/Database.dir
