@@ -57,17 +57,15 @@ namespace Database {
 			std::vector<std::string> attributes;
 			std::vector<std::string> parsedWhere;
 		public:
-			Query(std::string select, std::string from, std::string wherever);
+			Query(std::string select, std::string wherever, Table table);
 			std::vector<std::string> parseSelect(std::string select, Table table);
 			std::vector<std::string> parseWhere(std::string wherever);
 			std::vector<std::string> getAttributes();
 			std::vector<std::string> getParsedWhere();
 		};
 	public:
-		void createTable();
 		void addRecords();
 		std::vector<Record> findRecords();
-		Table getOutputTable();
 		Table findTable(std::string from);
 		DATABASE_API Database();
 		DATABASE_API bool addTable(Table tbl, std::string name);

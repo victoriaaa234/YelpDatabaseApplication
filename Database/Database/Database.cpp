@@ -52,8 +52,10 @@ database Database::Database::getTables() {
 
 Database::Table Database::Database::query(std::string select, std::string from, std::string wherever) {
 	std::cout << "Database: Query" << std::endl;
-	Query query = Query(select, from, wherever);
-	return Table();
+	table = findTable(from);
+	Query query = Query(select, wherever, table);
+	outputTable = Table(query.getAttributes());
+	return outputTable;
 }
 
 void Database::Database::testLinkage() {
@@ -68,7 +70,6 @@ void Database::Database::testLinkage() {
 Database::Table Database::Database::findTable(std::string from) {
 	database::iterator databaseTablesIterator = databaseTables.find(from);
 	return databaseTablesIterator->second;
-	return Table();
 }
 
 std::vector<Database::Record> Database::Database::findRecords() {
@@ -76,16 +77,7 @@ std::vector<Database::Record> Database::Database::findRecords() {
 }
 
 void Database::Database::addRecords() {
-	int index = 0;
 	for (int i = 0; i < records.size(); i++) {
 		outputTable.insert(records[i]);
 	}
-}
-
-Database::Table Database::Database::getOutputTable() {
-	return outputTable;
-}
-
-void Database::Database::createTable() {
-	//outputTable = Table(attributes);
 }

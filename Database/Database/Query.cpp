@@ -8,8 +8,8 @@
 
 typedef std::map<std::string, Database::Table> database;
 
-Database::Database::Query::Query(std::string select, std::string from, std::string wherever) {
-	//attributes = parseSelect(select);
+Database::Database::Query::Query(std::string select, std::string wherever, Table table) {
+	attributes = parseSelect(select, table);
 	parsedWhere = parseWhere(wherever);
 }
 
@@ -18,6 +18,7 @@ std::vector<std::string> Database::Database::Query::parseWhere(std::string where
 }
 
 std::vector<std::string> Database::Database::Query::parseSelect(std::string select, Table table) {
+	std::vector<std::string> tableAttributes;
 	if (select == "*") {
 		return table.getAttributes();
 	}
@@ -25,9 +26,9 @@ std::vector<std::string> Database::Database::Query::parseSelect(std::string sele
 		std::stringstream ss(select);
 		std::string token;
 		while (ss >> token) {
-			attributes.push_back(token.c_str());
+			tableAttributes.push_back(token.c_str());
 		}
-		return attributes;
+		return tableAttributes;
 	}
 }
 
