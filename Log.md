@@ -1,5 +1,19 @@
 # Team No Wei Log #
 
+## February 15th, 2017
+### General
+Team No Wei split our efforts into different tasks during the meeting at the HRBB Louge. Yerania and Victoria worked on implementing the database for Checkpoint 3. Kevin worked on implementing the test cases. Furthermore, we worked more on the details of our implementation as a team. 
+
+### Progress:
+- Kevin - Worked on linking the DLL and the Header file to a database test file. Utilizing the Catch C++ library.
+- Victoria - Started working on the Database API implementation.
+- Yerania - Completed Record implementation and began implementation work on Table API.
+
+### TODO:
+- Finish Test Cases
+- Finish Implementation of Database API
+- Analyze code written for test cases and Database API.
+
 ## February 11th, 2017
 ### General
 Team No Wei completed the API documentation (See commit #c232772e4d76581e5cc0a905ae644e666c7b0428). We noticed a bug in our implementation of the record API. Following the standards defined previously, we created a Github Issue and fixed it accordingly. Overall, Team No Wei has completed Checkpoint 1 and is waiting to submit on eCampus. After submission, we will close Milestone 1. 
