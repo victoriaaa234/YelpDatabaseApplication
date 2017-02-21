@@ -1,5 +1,20 @@
 # Team No Wei Log #
 
+## February 20th, 2017
+### General
+Team No Wei has successfully completed all the test cases. Kevin has completed the test cases and uplaoded the submission to eCampus. Victoria corrected Kevin's submission by renaming and resubmitting the test cases and emailed the test cases to the Group 17 so that they can begin testing their implementation of the code. Furthermore, Victoria is continuing to work on the Database API and has brought attention the potential issues of utilizing Boost with Query.
+
+### Progress:
+- Kevin - Finished test cases and submitted to eCampus. Checkpoint 2 Completed.
+- Victoria - Continuing to implement the Database API.
+- Yerania - Continuing to implement Table API.
+
+### TODO:
+- Finish Database API
+- Receive test cases from Group 19.
+- Incorporate test cases into our Visual Studio 2015 Solution.
+- Bring group up to speed on each others implementations of the API.
+
 ## February 15th, 2017
 ### General
 Team No Wei split our efforts into different tasks during the meeting at the HRBB Louge. Yerania and Victoria worked on implementing the database for Checkpoint 3. Kevin worked on implementing the test cases. Furthermore, we worked more on the details of our implementation as a team. 
