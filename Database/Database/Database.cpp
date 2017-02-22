@@ -38,9 +38,14 @@ bool Database::Database::dropTable(std::string tblName) {
 std::vector<std::string> Database::Database::listTables() {
 	std::cout << "Database: Listing Tables" << std::endl;
 	std::vector<std::string> tableNames;
-	for (database::iterator databaseTablesIterator = databaseTables.begin();
-		databaseTablesIterator != databaseTables.end(); databaseTablesIterator ++) {
-		tableNames.push_back(databaseTablesIterator->first);
+	if (databaseTables.empty()) {
+		std::cout << "Database is Empty!" << std::endl;
+	}
+	else {
+		for (database::iterator databaseTablesIterator = databaseTables.begin();
+		databaseTablesIterator != databaseTables.end(); databaseTablesIterator++) {
+			tableNames.push_back(databaseTablesIterator->first);
+		}
 	}
 	return tableNames;
 }
@@ -59,11 +64,18 @@ Database::Table Database::Database::query(std::string select, std::string from, 
 }
 
 void Database::Database::testLinkage() {
-	addTable(Table(),"Hello");
+	Table table = Table();
+	addTable(table,"Hello");
+	std::cout << "Database Size: ";
+	std::cout << getTables().size() << std::endl;
+	for (unsigned int i = 0; i < listTables().size(); i++) {
+		std::cout << listTables()[i] << std::endl;
+	}
 	dropTable("Hello");
-	listTables();
-	getTables();
-	query("Select", "From", "Where");
+	for (unsigned int i = 0; i < listTables().size(); i++) {
+		std::cout << listTables()[i] << std::endl;
+	}
+	//query("Select", "From", "Where");
 	std::cout << "Database: All Functions Work!" << std::endl;
 }
 
@@ -77,7 +89,7 @@ std::vector<Database::Record> Database::Database::findRecords() {
 }
 
 void Database::Database::addRecords() {
-	for (int i = 0; i < records.size(); i++) {
+	for (unsigned int i = 0; i < records.size(); i++) {
 		outputTable.insert(records[i]);
 	}
 }

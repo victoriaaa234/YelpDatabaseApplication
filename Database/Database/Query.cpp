@@ -14,6 +14,7 @@ Database::Database::Query::Query(std::string select, std::string wherever, Table
 }
 
 std::vector<std::string> Database::Database::Query::parseWhere(std::string wherever) {
+	std::vector<std::string> recordNames;
 	return parsedWhere;
 }
 
