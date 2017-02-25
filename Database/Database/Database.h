@@ -32,6 +32,8 @@ namespace Database {
 	class Table {
 	private:
 		std::vector<std::string> attributes;
+		std::vector<Record> allRecords;
+		std::string key;
 	public:
 		DATABASE_API Table();
 		DATABASE_API Table(std::vector<std::string> name);

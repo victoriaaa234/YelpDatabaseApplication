@@ -40,18 +40,21 @@ bool Database::Table::deleteAttribute(std::string name) {
 
 bool Database::Table::insert(Record record) {
 	std::cout << "Table: Inserting" << std::endl;
+	if (record.getSize() <= attributes.size()) {
+		allRecords.push_back(record);
+		return true;
+	}
 	return false;
 }
 
 std::vector<std::string> Database::Table::getAttributes() {
 	std::cout << "Table: Getting Attributes" << std::endl;
-	std::vector<std::string> attributes;
 	return attributes;
 }
 
 unsigned int Database::Table::getSize() {
 	std::cout << "Table: Getting Size" << std::endl;
-	return 0;
+	return allRecords.size();
 }
 
 Database::tblIterator Database::Table::begin() {
@@ -66,6 +69,12 @@ Database::tblIterator Database::Table::end() {
 
 bool Database::Table::defineKey(std::string name) {
 	std::cout << "Table: Defining Key" << std::endl;
+	for (int i = 0; i < attributes.size(); i++) {
+		if (attributes[i] == name) {
+			key = name;
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -82,6 +91,11 @@ Database::Table Database::Table::naturalJoin(Table tblOne, Table tblTwo) {
 std::map<std::string, std::string> Database::Table::routines(std::string name) {
 	std::cout << "Table: Routines" << std::endl;
 	std::map<std::string, std::string> procedures;
+	/*for (int i = 0; i < attributes.size(); i++) {
+		if (attributes[i] == name) {
+			procedures.insert("Count", "");
+		}
+	}*/
 	return procedures;
 } 
 
@@ -94,14 +108,19 @@ void Database::Table::testLinkage() {
 	Table table = Table(test);
 	std::cout << std::boolalpha << table.addAttribute("Size") << std::endl;
 	std::cout << std::boolalpha << table.addAttribute("Name") << std::endl;
+	std::cout << std::boolalpha << table.addAttribute("Gender") << std::endl;
 	std::cout << std::boolalpha << table.deleteAttribute("Size") << std::endl;
 	std::cout << std::boolalpha << table.deleteAttribute("Size") << std::endl;
-	insert(Record(5));
-	getAttributes();
-	getSize();
+	std::cout << std::boolalpha << table.insert(Record(5)) << std::endl;
+	std::vector<std::string> retrieveAttributes = table.getAttributes();
+	for (int i = 0; i < retrieveAttributes.size(); i++) {
+		std::cout << retrieveAttributes[i] << std::endl;
+	}
+	std::cout << table.getSize() << std::endl;
 	begin();
 	end();
-	defineKey("Hello");
+	std::cout << std::boolalpha << table.defineKey("Hello") << std::endl;
+	std::cout << std::boolalpha << table.defineKey("Name") << std::endl;
 	crossJoin(Table(), Table());
 	naturalJoin(Table(), Table());
 	routines("Hello");
