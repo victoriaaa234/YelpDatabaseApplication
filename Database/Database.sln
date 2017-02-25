@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Database", "Database\Databa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DatabaseUser", "DatabaseUser\DatabaseUser.vcxproj", "{8CD86BCE-348E-4DE4-8364-D73ACDF8D463}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DatabaseTest", "DatabaseTest\DatabaseTest.vcxproj", "{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{8CD86BCE-348E-4DE4-8364-D73ACDF8D463}.Release|x64.Build.0 = Release|x64
 		{8CD86BCE-348E-4DE4-8364-D73ACDF8D463}.Release|x86.ActiveCfg = Release|Win32
 		{8CD86BCE-348E-4DE4-8364-D73ACDF8D463}.Release|x86.Build.0 = Release|Win32
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Debug|x64.ActiveCfg = Debug|x64
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Debug|x64.Build.0 = Debug|x64
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Debug|x86.ActiveCfg = Debug|Win32
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Debug|x86.Build.0 = Debug|Win32
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Release|x64.ActiveCfg = Release|x64
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Release|x64.Build.0 = Release|x64
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Release|x86.ActiveCfg = Release|Win32
+		{ABF8E760-1DEA-414C-B3D0-7F2D46BE5460}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
