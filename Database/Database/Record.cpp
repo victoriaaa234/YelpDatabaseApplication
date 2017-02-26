@@ -5,17 +5,14 @@
 #include "stdafx.h"
 
 Database::Record::Record(unsigned int size) {
-	std::cout << "Record: One Argument Constructor" << std::endl;
 	record = std::vector<std::string>(size, "NULL");
 }
 
 unsigned int Database::Record::getSize() {
-	std::cout << "Record: Get Size" << std::endl;
 	return record.size();
 }
 
 bool Database::Record::set(unsigned int index, std::string characteristic) {
-	std::cout << "Record: Set Record" << std::endl;
 	if (index < record.size()) {
 		record[index] = characteristic;
 		return true;
@@ -24,7 +21,6 @@ bool Database::Record::set(unsigned int index, std::string characteristic) {
 }
 
 std::string Database::Record::get(unsigned int index) {
-	std::cout << "Record: Get Record" << std::endl;
 	if (index < record.size()) {
 		return record[index];
 	}

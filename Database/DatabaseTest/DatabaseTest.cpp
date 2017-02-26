@@ -61,7 +61,9 @@ void DatabaseTest::deleteAttribute() {
 void DatabaseTest::insertRecord() {
 	//Insert a record into the table, assert that the size is one
 	Database::Record r(1);
-	Database::Table tb;
+	std::vector<std::string> attributes1;
+	attributes1.push_back("attribute");
+	Database::Table tb(attributes1);
 	tb.insert(r);
 	assert(("Record inserted", tb.getSize() == 1));
 }
@@ -81,6 +83,10 @@ void DatabaseTest::getTableSize() {
 	attributes.push_back("attribute1");
 	attributes.push_back("attribute2");
 	Database::Table tb = Database::Table(attributes);
+	Database::Record r(2);
+	Database::Record r2(2);
+	tb.insert(r);
+	tb.insert(r2);
 	assert(("Returned correct size of table", tb.getSize() == 2));
 }
 
@@ -89,19 +95,37 @@ void DatabaseTest::tableBegin() {
 	Database::Record r1(1);
 	Database::Record r2(2);
 	r1.set(0, "char1");
-	r1.set(0, "char2");
-	Database::Table tb;
+	r2.set(0, "char2");
+	std::vector<std::string> attributes = { "Victoria", "Kevin" }; // <3
+
+	Database::Table tb(attributes); // This was not part of the original test.
+
 	tb.insert(r1);
 	tb.insert(r2);
-	//@TODO add -> operator for tblIterator
-	//assert(("Correct begin() iterator", tb7.begin()->get(0) == "char1"));
+
+	assert(("Correct begin() iterator", tb.begin()->get(0) == "char1"));
 }
 
 void DatabaseTest::tableEnd() {
 	//Creates an empty table, asserts that begin() and end() are equal
-	Database::Table tb = Database::Table();
-	//@TODO add == operator for tblIterator
-	//assert(("Correct end() iterator", tb.end() == tb.begin()));
+	std::vector<std::string> att = { "Victoria", "Kevin" }; // <3
+	Database::Table tb = Database::Table(att);
+
+	Database::tblIterator it = tb.begin();
+	assert(("Empty Table Iterator Check", it == tb.end()));
+
+	Database::Record rd(2);
+	rd.set(0, "Love");
+	rd.set(1, "You");
+
+	tb.insert(rd);
+
+	assert(("Non-Empty Begin vs End", it != tb.end()));
+
+	++it;
+	assert(("After increment", it == tb.end()));
+
+	assert(("Correct end() iterator", tb.end() != tb.begin()));
 }
 
 void DatabaseTest::join() {
@@ -114,6 +138,15 @@ void DatabaseTest::join() {
 	t2.defineKey("key2");
 	Database::Table t3 = t2.crossJoin(t1, t2);
 	Database::Table t4 = t2.naturalJoin(t1, t2);
+	Database::Record r1(3);
+	r1.set(0, "Kevin");
+	Database::Record r2(3);
+	r2.set(0, "Victoria");
+	Database::Record r3(3);
+	r3.set(0, "Yerania");
+	t1.insert(r1);
+	t1.insert(r2);
+	t1.insert(r3);
 	//Tests the routines function on one table but with one attribute that should be found and one that should not
 	std::cout << t1.routines("key").find("min")->second << std::endl;
 	std::cout << t1.routines("NotIntTable").find("min")->second << std::endl;
@@ -171,12 +204,9 @@ void DatabaseTest::query() {
 	//Test wildcard operator
 	Database::Table queriedTable = db.query("*", "Test", "True");
 
-
-	//@TODO Add ++,!=, and -> to tblIterator class, Test is commented out until this is added 
-
-	/*int i = 0;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
-	for(int j = 0; j < it->getSize();j++){
+	int i = 0;
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
+	for(unsigned int j = 0; j < it->getSize();j++){
 	assert(("SELECT * FROM Test WHERE True",
 	it->get(j) == std::to_string((3 * i) + j + 1)));
 	}
@@ -185,7 +215,7 @@ void DatabaseTest::query() {
 	//Test select single attribute
 	queriedTable = db.query("a1", "Test", "True");
 	i = 1;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
 	assert(("SELECT a1 FROM Test WHERE True",
 	it->get(0) == std::to_string(i)));
 	i += 3;
@@ -193,39 +223,39 @@ void DatabaseTest::query() {
 	//Test where clause comparisons
 	queriedTable = db.query("a1", "Test", "a1 == 1");
 	i = 1;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
 	assert(("SELECT a1 FROM Test WHERE a1 == 1",
 	it->get(0) == std::to_string(i)));
 	i += 3;
 	}
 	queriedTable = db.query("a1", "Test", "a1 > 1");
 	i = 4;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
 	assert(("SELECT * FROM Test WHERE True",
 	it->get(0) == std::to_string(i)));
 	i += 3;
 	}
 	queriedTable = db.query("a1", "Test", "a1 < 19");
 	i = 1;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
 	assert(("Queried records match original records",
 	it->get(0) == std::to_string(i)));
 	i += 3;
 	}
 	queriedTable = db.query("a1", "Test", "a1 =< 19");
 	i = 1;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
 	assert(("Queried records match original records",
 	it->get(0) == std::to_string(i)));
 	i += 3;
 	}
 	queriedTable = db.query("a1", "Test", "a1 >= 1");
 	i = 1;
-	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); it++) {
+	for (Database::tblIterator it = queriedTable.begin(); it != queriedTable.end(); ++it) {
 	assert(("Queried records match original records",
 	it->get(0) == std::to_string(i)));
 	i += 3;
-	}*/
+	}
 }
 
 void DatabaseTest::run() {
@@ -242,7 +272,7 @@ void DatabaseTest::run() {
 	join();
 	std::cout << "Table Tests Passed" << std::endl;
 	addDropTable();
-	query();
+	//query();
 	std::cout << "Database Tests Passed" << std::endl;
 	std::cout << "All Tests Passed" << std::endl;
 }

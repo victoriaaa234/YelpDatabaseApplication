@@ -7,16 +7,13 @@
 
 typedef std::map<std::string, Database::Table> database;
 
-Database::Database::Database() {
-	std::cout << "Database: Constructor" << std::endl;
-}
+Database::Database::Database() {}
 
 /*
 	If the Table already exists, do not replace the Table with
 	a new table. Instead, return false.
 */
 bool Database::Database::addTable(Table tbl, std::string name) {
-	std::cout << "Database: Adding Table" << std::endl;
 	std::pair<database::iterator, bool> ret;
 	ret = databaseTables.insert(std::pair<std::string, Table>(name, tbl));
 	if (ret.second) {
@@ -27,7 +24,6 @@ bool Database::Database::addTable(Table tbl, std::string name) {
 
 bool Database::Database::dropTable(std::string tblName) {
 	int elementsErased = 0;
-	std::cout << "Database: Dropping Table" << std::endl;
 	elementsErased = databaseTables.erase(tblName);
 	if (elementsErased == 1) {
 		return true;
@@ -36,10 +32,9 @@ bool Database::Database::dropTable(std::string tblName) {
 }
 
 std::vector<std::string> Database::Database::listTables() {
-	std::cout << "Database: Listing Tables" << std::endl;
 	std::vector<std::string> tableNames;
 	if (databaseTables.empty()) {
-		std::cout << "Database is Empty!" << std::endl;
+		std::cerr << "Database is Empty!" << std::endl;
 	}
 	else {
 		for (database::iterator databaseTablesIterator = databaseTables.begin();
@@ -51,7 +46,6 @@ std::vector<std::string> Database::Database::listTables() {
 }
 
 database Database::Database::getTables() {
-	std::cout << "Database: Getting Tables" << std::endl;
 	return databaseTables;
 }
 

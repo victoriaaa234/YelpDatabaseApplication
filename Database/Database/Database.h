@@ -13,10 +13,6 @@
 
 namespace Database {
 
-	struct tblIterator {
-
-	};
-
 	class Record {
 	private:
 		std::vector<std::string> record;
@@ -29,10 +25,23 @@ namespace Database {
 		DATABASE_API void testLinkage();
 	};
 
+	class Table;
+
+	struct tblIterator {
+		Table *table;
+		int value;
+		DATABASE_API Record* operator->();
+		DATABASE_API tblIterator& operator++();
+		DATABASE_API bool operator!=(tblIterator param);
+		DATABASE_API bool operator==(tblIterator param);
+	};
+
 	class Table {
+
 	private:
-		std::vector<std::string> attributes;
+		tblIterator tableIterator;
 		std::vector<Record> allRecords;
+		std::vector<std::string> attributes;
 		std::string key;
 	public:
 		DATABASE_API Table();
@@ -44,11 +53,15 @@ namespace Database {
 		DATABASE_API unsigned int getSize();
 		DATABASE_API tblIterator begin();
 		DATABASE_API tblIterator end();
+		DATABASE_API std::string getKey();
 		DATABASE_API bool defineKey(std::string name);
 		DATABASE_API Table crossJoin(Table tblOne, Table tblTwo);
 		DATABASE_API Table naturalJoin(Table tblOne, Table tblTwo);
 		DATABASE_API std::map<std::string, std::string> routines(std::string name);
 		DATABASE_API void testLinkage();
+		DATABASE_API std::vector<Record> getAllRecords();
+		DATABASE_API Record& getRecord(int index);
+
 	};
 
 	// This class is exported from the Database.dll
