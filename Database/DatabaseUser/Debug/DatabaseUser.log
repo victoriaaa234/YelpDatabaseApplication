@@ -1,5 +1,5 @@
-﻿Build started 2/26/2017 2:34:29 AM.
-     1>Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\DatabaseUser\DatabaseUser.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2/27/2017 4:16:54 PM.
+     1>Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\DatabaseUser\DatabaseUser.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Users\Hernandez-TAMU\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database" /I"\\blender\homes\k\e\kevinjnguyen07201997\nt\AccountSettings\Desktop\Git\CSCE-315-Database-Project\Database\Database" /I"C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Database" /AI"\\blender\homes\k\e\kevinjnguyen07201997\nt\AccountSettings\Desktop\Git\CSCE-315-Database-Project\Database\Database" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yc"stdafx.h" /Fp"Debug\DatabaseUser.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /FIstdafx.h /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
@@ -10,8 +10,8 @@
          Debug\stdafx.obj
          "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\Database.lib"
          DatabaseUser.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\Debug\DatabaseUser.exe
-     1>Done Building Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\DatabaseUser\DatabaseUser.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\Database\DatabaseUser\DatabaseUser.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.18
+Time Elapsed 00:00:03.57

@@ -14,6 +14,8 @@ public:
 	static void tableBegin();
 	static void tableEnd();
 	static void join();
+	static void testNaturalJoin();
+	static void testCrossJoin();
 	//Database Tests
 	static void addDropTable();
 	static void query();

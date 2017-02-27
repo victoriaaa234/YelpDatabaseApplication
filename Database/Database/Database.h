@@ -64,7 +64,7 @@ namespace Database {
 		DATABASE_API Record& getRecord(int index);
 
 		DATABASE_API void printTable();
-		DATABASE_API bool deleteRecord(int index);
+		DATABASE_API bool deleteRecord(unsigned int index);
 
 	};
 
