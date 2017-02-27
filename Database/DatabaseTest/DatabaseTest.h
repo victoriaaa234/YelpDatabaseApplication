@@ -17,6 +17,7 @@ public:
 	//Database Tests
 	static void addDropTable();
 	static void query();
+	static void QueryTest();
 	//Run all tests
 	static void run();
 };

@@ -23,7 +23,7 @@ bool Database::Table::addAttribute(std::string name) {
 	return true;
 }
 
-bool Database::Table::deleteAttribute(std::string name) {
+/*bool Database::Table::deleteAttribute(std::string name) {
 	for (unsigned int i = 0; i < attributes.size(); i++) {
 		if (attributes[i] == name) {
 			attributes.erase(attributes.begin() + i);
@@ -32,6 +32,32 @@ bool Database::Table::deleteAttribute(std::string name) {
 	}
 	std::cout << "Attribute name does not exist" << std::endl;
 	return false;
+} */
+
+bool Database::Table::deleteAttribute(std::string name) {
+
+	int position = -1; 
+
+	for (int i = 0; i < attributes.size(); ++i) {
+		if (attributes[i] == name) {
+			position = i;
+			break;
+		}
+	}
+
+	if (position == -1) {
+		std::cout << "Unable to find attribute." << std::endl;
+		return false;
+	}
+
+	attributes.erase(attributes.begin() + position);
+
+	for (int i = 0; i < allRecords.size(); i++) {
+		allRecords[i].remove(position);
+	}
+	
+	return true;
+
 }
 
 bool Database::Table::insert(Record record) {

@@ -23,6 +23,7 @@ namespace Database {
 		DATABASE_API bool set(unsigned int index, std::string characteristic);
 		DATABASE_API std::string get(unsigned int index);
 		DATABASE_API void testLinkage();
+		DATABASE_API bool remove(unsigned int index);
 	};
 
 	class Table;
@@ -62,6 +63,8 @@ namespace Database {
 		DATABASE_API std::vector<Record> getAllRecords();
 		DATABASE_API Record& getRecord(int index);
 
+		DATABASE_API void printTable();
+
 	};
 
 	// This class is exported from the Database.dll
@@ -73,12 +76,15 @@ namespace Database {
 		class Query {
 			std::vector<std::string> attributes;
 			std::vector<std::string> parsedWhere;
+			Table originalTable;
 		public:
 			Query(std::string select, std::string wherever, Table table);
 			std::vector<std::string> parseSelect(std::string select, Table table);
 			std::vector<std::string> parseWhere(std::string wherever);
 			std::vector<std::string> getAttributes();
 			std::vector<std::string> getParsedWhere();
+			Table getResult();
+			std::string Tokenizer(std::string & str);
 		};
 	public:
 		void addRecords();

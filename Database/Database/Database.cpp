@@ -51,10 +51,14 @@ database Database::Database::getTables() {
 
 Database::Table Database::Database::query(std::string select, std::string from, std::string wherever) {
 	std::cout << "Database: Query" << std::endl;
-	table = findTable(from);
-	Query query = Query(select, wherever, table);
-	outputTable = Table(query.getAttributes());
-	return outputTable;
+
+	table = findTable(from); // Search for the table. @TODO Throw error if no table found.
+
+	Query query = Query(select, wherever, table); // Create a Query from the parameters passed.
+	
+	Table tb = query.getResult(); // Grab the result of the query.
+
+	return tb; // Return the result.
 }
 
 void Database::Database::testLinkage() {
@@ -76,6 +80,27 @@ void Database::Database::testLinkage() {
 Database::Table Database::Database::findTable(std::string from) {
 	database::iterator databaseTablesIterator = databaseTables.find(from);
 	return databaseTablesIterator->second;
+}
+
+void Database::Table::printTable() {
+	using namespace std;
+
+	cout << "Size: " << allRecords.size() << endl;
+	cout << "-- Record Contents --" << endl;
+	for (int i = 0; i < attributes.size(); ++i) {
+		cout << " | " << attributes[i];
+	}
+
+	cout << " | " << endl;
+
+	for (int i = 0; i < allRecords.size(); ++i) {
+		Record rd = allRecords[i];
+		for (int j = 0; j < rd.getSize(); j++) {
+			cout << rd.get(j) << " ";
+		}
+		cout << endl;
+	}
+	
 }
 
 std::vector<Database::Record> Database::Database::findRecords() {

@@ -27,6 +27,13 @@ std::string Database::Record::get(unsigned int index) {
 	return "";
 }
 
+bool Database::Record::remove(unsigned int index) {
+	if (index >= record.size()) return false;
+	record.erase(record.begin() + index);
+	return true;
+}
+
+
 void Database::Record::testLinkage() {
 	std::cout << "Size: " << getSize() << std::endl;
 	set(4, "hello");

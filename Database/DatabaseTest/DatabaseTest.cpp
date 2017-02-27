@@ -258,8 +258,39 @@ void DatabaseTest::query() {
 	}
 }
 
+void DatabaseTest::QueryTest() {
+	using namespace std; // Remove Later
+
+	cout << "Beginning Query Test" << endl;
+
+	Database::Database db;
+	std::vector<std::string> attributes = { "ID", "Name", "Color", "Food" };
+	Database::Table tb(attributes);
+
+	for (int i = 0; i < 10; i++) { // Populate a database to query from.
+		Database::Record rd(4);
+		rd.set(0, to_string(i));
+		rd.set(1, "Kevin" + to_string(i));
+		rd.set(2, "Red" + to_string(i));
+		rd.set(3, "Apples" + to_string(i));
+		tb.insert(rd);
+	}
+
+	cout << "--------------------------- ORIGINAL TABLE --------------------------" << endl;
+	tb.printTable();
+	
+	db.addTable(tb, "Test");
+
+	cout << endl << endl << "!!------------------------- QUERY TABLE ------------------------!!" << endl;
+
+	Database::Table result = db.query("ID, Name, Food", "Test", "True");
+	result.printTable();
+
+
+}
+
 void DatabaseTest::run() {
-	record();
+	/*record();
 	std::cout << "Record Tests Passed" << std::endl;
 	tableListConstructor();
 	addAttribute();
@@ -274,7 +305,12 @@ void DatabaseTest::run() {
 	addDropTable();
 	//query();
 	std::cout << "Database Tests Passed" << std::endl;
-	std::cout << "All Tests Passed" << std::endl;
+	std::cout << "All Tests Passed" << std::endl;*/
+
+	std::cout << "Kevin's Query Test" << std::endl;
+	QueryTest();
+	std::cout << "Completed Test" << std::endl;
+
 }
 
 int main() {
