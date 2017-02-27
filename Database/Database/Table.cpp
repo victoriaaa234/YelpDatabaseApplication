@@ -312,3 +312,12 @@ void Database::Table::testLinkage() {
 	routines("Hello");
 	std::cout << "Table: All Functions Work!" << std::endl;
 }
+
+bool Database::Table::deleteRecord(int index) {
+	if (index >= allRecords.size()) {
+		return false;
+	}
+
+	allRecords.erase(allRecords.begin() + index);
+	return true;
+}
