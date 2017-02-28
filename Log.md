@@ -1,5 +1,19 @@
 # Team No Wei Log #
 
+## Febraury 24th, 2017
+### General
+Team No Wei completed the implementation of Table and Record. Currently, we are working on implementing the functions of Database. We have successfully incorporated the test cases that were given to us by Team 19. However, the test cases we were given were filled with issues and we were required to fix them. Furthermore, Kevin is continuing to work on the Query Parser for the Database API.
+
+### Progress:
+- Kevin - Implemented Select and From on the Query.
+- Victoria - Completed Table API, Database other API endpoints, and Cross Join/Natural Join.
+- Yerania - Completed Table API and Record API endpoints. 
+
+### TODO:
+- Parse the Where clause
+- Implement a Decision Tree for each record.
+
+
 ## February 20th, 2017
 ### General
 Team No Wei has successfully completed all the test cases. Kevin has completed the test cases and uplaoded the submission to eCampus. Victoria corrected Kevin's submission by renaming and resubmitting the test cases and emailed the test cases to the Group 17 so that they can begin testing their implementation of the code. Furthermore, Victoria is continuing to work on the Database API and has brought attention the potential issues of utilizing Boost with Query.
