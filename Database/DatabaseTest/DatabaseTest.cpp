@@ -156,6 +156,83 @@ void DatabaseTest::join() {
 	std::cout << t1.routines("NotIntTable").find("count")->second << std::endl;
 }
 
+void DatabaseTest::testNaturalJoin() {
+	std::vector<std::string> items = { "ItemID", "Name", "CompanyID" };
+	Database::Table foodTable(items);
+
+	Database::Record rd1(3);
+	rd1.set(0, "01");
+	rd1.set(1, "Green Apples");
+	rd1.set(2, "01");
+
+	Database::Record rd2(3);
+	rd2.set(0, "02");
+	rd2.set(1, "Red Apples");
+	rd2.set(2, "01");
+
+	Database::Record rd3(3);
+	rd3.set(0, "03");
+	rd3.set(1, "Bananas");
+	rd3.set(2, "02");
+
+	foodTable.insert(rd1);
+	foodTable.insert(rd2);
+	foodTable.insert(rd3);
+
+	std::vector<std::string> foodColors = { "CompanyID", "Colors" };
+	Database::Table foodColor(foodColors);
+	foodColor.defineKey("CompanyID");
+	Database::Record fc1(2);
+	fc1.set(0, "01");
+	fc1.set(1, "Any");
+
+	Database::Record fc2(2);
+	fc2.set(0, "02");
+	fc2.set(1, "Yellow");
+
+	foodColor.insert(fc1);
+	foodColor.insert(fc2);
+
+	Database::Table natJoin = foodTable.naturalJoin(foodTable, foodColor);
+
+	std::vector<std::string> attributeResults = { "ItemID", "Name", "CompanyID", "Colors" };
+	assert(("Attributes need to be the same", natJoin.getAttributes() == attributeResults));
+	assert(("Table size", natJoin.getSize() == 3));
+}
+
+void DatabaseTest::testCrossJoin() {
+	std::vector<std::string> attributeNames = { "TeacherID", "TeacherName" };
+	Database::Table teacher(attributeNames);
+
+	Database::Record rd(2);
+	rd.set(0, "T1");
+	rd.set(1, "Mary");
+	Database::Record rd2(2);
+	rd2.set(0, "T2");
+	rd2.set(1, "Jim");
+	teacher.insert(rd);
+	teacher.insert(rd2);
+
+	std::vector<std::string> studentNames = { "StudentID", "TeacherID", "StudentName" };
+	Database::Table student(studentNames);
+
+	Database::Record st(3);
+	st.set(0, "S1");
+	st.set(1, "T1");
+	st.set(2, "Apples");
+	Database::Record st2(3);
+	st2.set(0, "S2");
+	st2.set(1, "T1");
+	st2.set(2, "Pies");
+
+	student.insert(st);
+	student.insert(st2);
+
+	Database::Table randomTable = teacher.crossJoin(teacher, student);
+	std::vector<std::string> joinedAttributes = { "1TeacherID", "TeacherName", "StudentID", "2TeacherID", "StudentName" };
+	assert(("Table size has to be correct", randomTable.getSize() == 4));
+	assert(("Attributes need to be the same", randomTable.getAttributes() == joinedAttributes));
+}
 
 /******************
 *  DATABASE TESTS
@@ -269,6 +346,12 @@ void DatabaseTest::run() {
 	getTableSize();
 	tableBegin();
 	tableEnd();
+	std::cout << "Kevin's Natural Join Test" << std::endl;
+	testNaturalJoin();
+	std::cout << "Natural Join works" << std::endl;
+	std::cout << "Kevin's Cross Join Test" << std::endl;
+	testCrossJoin();
+	std::cout << "Cross Join works" << std::endl;
 	join();
 	std::cout << "Table Tests Passed" << std::endl;
 	addDropTable();

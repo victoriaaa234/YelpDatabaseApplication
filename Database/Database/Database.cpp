@@ -71,15 +71,15 @@ void Database::Table::printTable() {
 
 	cout << "Size: " << allRecords.size() << endl;
 	cout << "-- Record Contents --" << endl;
-	for (int i = 0; i < attributes.size(); ++i) {
+	for (unsigned int i = 0; i < attributes.size(); ++i) {
 		cout << " | " << attributes[i];
 	}
 
 	cout << " | " << endl;
 
-	for (int i = 0; i < allRecords.size(); ++i) {
+	for (unsigned int i = 0; i < allRecords.size(); ++i) {
 		Record rd = allRecords[i];
-		for (int j = 0; j < rd.getSize(); j++) {
+		for (unsigned int j = 0; j < rd.getSize(); j++) {
 			cout << rd.get(j) << " ";
 		}
 		cout << endl;

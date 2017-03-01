@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include "Database.h"
 #include "stdafx.h"
@@ -23,22 +24,11 @@ bool Database::Table::addAttribute(std::string name) {
 	return true;
 }
 
-/*bool Database::Table::deleteAttribute(std::string name) {
-	for (unsigned int i = 0; i < attributes.size(); i++) {
-		if (attributes[i] == name) {
-			attributes.erase(attributes.begin() + i);
-			return true;
-		}
-	}
-	std::cout << "Attribute name does not exist" << std::endl;
-	return false;
-} */
-
 bool Database::Table::deleteAttribute(std::string name) {
 
 	int position = -1; 
 
-	for (int i = 0; i < attributes.size(); ++i) {
+	for (unsigned int i = 0; i < attributes.size(); ++i) {
 		if (attributes[i] == name) {
 			position = i;
 			break;
@@ -52,7 +42,7 @@ bool Database::Table::deleteAttribute(std::string name) {
 
 	attributes.erase(attributes.begin() + position);
 
-	for (int i = 0; i < allRecords.size(); i++) {
+	for (unsigned int i = 0; i < allRecords.size(); i++) {
 		allRecords[i].remove(position);
 	}
 	
@@ -111,7 +101,6 @@ Database::Record& Database::Table::getRecord(int index) {
 }
 
 Database::Table Database::Table::crossJoin(Table tblOne, Table tblTwo) {
-	std::cout << "Table: Cross Join" << std::endl;
 	if (tblOne.getAttributes().empty()) {
 		if (tblTwo.getAttributes().empty()) {
 			return Table();
@@ -131,6 +120,22 @@ Database::Table Database::Table::crossJoin(Table tblOne, Table tblTwo) {
 	unsigned int tableTwoIndex = 0;
 	std::vector<std::string> tblOneAttributes = tblOne.getAttributes();
 	std::vector<std::string> tblTwoAttributes = tblTwo.getAttributes();
+	unsigned int count = 0;
+	for (unsigned int i = 0; i < tblOneAttributes.size(); i++) {
+		for (unsigned int j = 0; j < tblTwoAttributes.size(); j++) {
+			if (tblOneAttributes[i] == tblTwoAttributes[j]) {
+				count++;
+				std::string attributeOne = tblOneAttributes[i];
+				std::string attributeTwo = tblTwoAttributes[j];
+				attributeOne = std::to_string(count) + attributeOne;
+				count++;
+				attributeTwo = std::to_string(count) + attributeTwo;
+				tblOneAttributes[i] = attributeOne;
+				tblTwoAttributes[j] = attributeTwo;
+			}
+			count = 0;
+		}
+	}
 	totalAttributes = tblOneAttributes;
 	totalAttributes.insert(totalAttributes.end(), tblTwoAttributes.begin(), tblTwoAttributes.end());
 	unsigned int attributeSize = totalAttributes.size();
@@ -158,7 +163,6 @@ Database::Table Database::Table::crossJoin(Table tblOne, Table tblTwo) {
 }
 
 Database::Table Database::Table::naturalJoin(Table tblOne, Table tblTwo) {
-	std::cout << "Table: Natural Join" << std::endl;
 	if (tblOne.getAttributes().empty()) {
 		if (tblTwo.getAttributes().empty()) {
 			std::cerr << "Both tables are empty!";
@@ -240,12 +244,11 @@ Database::Table Database::Table::naturalJoin(Table tblOne, Table tblTwo) {
 }
 
 std::map<std::string, std::string> Database::Table::routines(std::string name) {
-	std::cout << "Table: Routines" << std::endl;
 	std::map<std::string, std::string> procedures;
 	std::string minimum = "";
 	std::string maximum = "";
 	unsigned int j = 0;
-	unsigned int count;
+	unsigned int count = 0;
 	unsigned int attributeLocation = -1;
 	for (unsigned int i = 0; i < attributes.size(); i++) {
 		if (attributes[i] == name) {
@@ -254,13 +257,12 @@ std::map<std::string, std::string> Database::Table::routines(std::string name) {
 		}
 	}
 	if (attributeLocation == -1) {
-		std::cerr << "Can't find attribute!" << std::endl;
+		std::cerr << "Name doesn't exist in the attributes" << std::endl;
 	}
 	if (allRecords.empty()) {
 		std::cerr << "There are no records in the table!" << std::endl;
 	}
 	else {
-		count = 0;
 		for (unsigned int i = 0; i < allRecords.size(); i++) {
 			if (allRecords[i].get(attributeLocation) != "") {
 				count++;
@@ -285,7 +287,7 @@ std::map<std::string, std::string> Database::Table::routines(std::string name) {
 	return procedures;
 } 
 
-bool Database::Table::deleteRecord(int index) {
+bool Database::Table::deleteRecord(unsigned int index) {
 	if (index >= allRecords.size()) {
 		return false;
 	}
