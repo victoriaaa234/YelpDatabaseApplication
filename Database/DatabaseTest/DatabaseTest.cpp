@@ -283,7 +283,7 @@ void DatabaseTest::QueryTest() {
 
 	cout << endl << endl << "!!------------------------- QUERY TABLE ------------------------!!" << endl;
 
-	Database::Table result = db.query("ID, Name, Food", "Test", "True");
+	Database::Table result = db.query("ID,Name,Food", "Test", "ID = 1");
 	result.printTable();
 
 
@@ -306,6 +306,9 @@ void DatabaseTest::run() {
 	//query();
 	std::cout << "Database Tests Passed" << std::endl;
 	std::cout << "All Tests Passed" << std::endl;*/
+
+	//std::cout << "Group 17 " << std::endl;
+	//query();
 
 	std::cout << "Kevin's Query Test" << std::endl;
 	QueryTest();

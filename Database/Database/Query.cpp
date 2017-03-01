@@ -5,6 +5,7 @@
 #include <sstream>
 #include "Database.h"
 #include "stdafx.h"
+#include "Tokenizer.h"
 
 typedef std::map<std::string, Database::Table> database;
 
@@ -23,14 +24,12 @@ std::vector<std::string> Database::Database::Query::parseSelect(std::string sele
 		tableAttributes = table.getAttributes();
 	}
 	else { // Handling arbitrary number of attribute names
-		std::stringstream ss(select);
-		std::string token;
 
-		while (ss >> token) { // Grab a token, split by comma, 
-			std::string delimiter = ",";
-			std::string attribute = token.substr(0, token.find(delimiter));
-			// @TODO Handle case where no space after comma
-			tableAttributes.push_back(attribute);
+		Tokenizer tk(select);
+
+		while (tk.hasNext()) {
+			std::string token = tk.get();
+			tableAttributes.push_back(token);
 		}
 
 	}
@@ -62,11 +61,15 @@ Database::Table Database::Database::Query::getResult() { // Generates the result
 	return originalTable;
 }
 
-std::string Database::Database::Query::Tokenizer(std::string& str) {
-	return "";
-}
+std::vector<std::string> Database::Database::Query::parseWhere(std::string whereClause) {
+	using namespace std;
+	cout << "WHERE: " << whereClause << endl;
+	Tokenizer tk(whereClause);
 
-std::vector<std::string> Database::Database::Query::parseWhere(std::string wherever) {
-	std::vector<std::string> recordNames;
+	while (tk.hasNext()) {
+		string token = tk.get();
+		cout << token << endl;
+	}
+
 	return parsedWhere;
 }

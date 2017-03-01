@@ -10,6 +10,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "Tokenizer.h"
 
 namespace Database {
 
@@ -78,6 +79,7 @@ namespace Database {
 			std::vector<std::string> attributes;
 			std::vector<std::string> parsedWhere;
 			Table originalTable;
+			Tokenizer* tk;
 		public:
 			Query(std::string select, std::string wherever, Table table);
 			std::vector<std::string> parseSelect(std::string select, Table table);
@@ -85,7 +87,6 @@ namespace Database {
 			std::vector<std::string> getAttributes();
 			std::vector<std::string> getParsedWhere();
 			Table getResult();
-			std::string Tokenizer(std::string & str);
 		};
 	public:
 		void addRecords();
