@@ -285,34 +285,6 @@ std::map<std::string, std::string> Database::Table::routines(std::string name) {
 	return procedures;
 } 
 
-void Database::Table::testLinkage() {
-	std::vector<std::string> test;
-	test.push_back("Name");
-	test.push_back("Date");
-	test.push_back("City");
-	test.push_back("Country");
-	Table table = Table(test);
-	std::cout << std::boolalpha << table.addAttribute("Size") << std::endl;
-	std::cout << std::boolalpha << table.addAttribute("Name") << std::endl;
-	std::cout << std::boolalpha << table.addAttribute("Gender") << std::endl;
-	std::cout << std::boolalpha << table.deleteAttribute("Size") << std::endl;
-	std::cout << std::boolalpha << table.deleteAttribute("Size") << std::endl;
-	std::cout << std::boolalpha << table.insert(Record(5)) << std::endl;
-	std::vector<std::string> retrieveAttributes = table.getAttributes();
-	for (unsigned int i = 0; i < retrieveAttributes.size(); i++) {
-		std::cout << retrieveAttributes[i] << std::endl;
-	}
-	std::cout << table.getSize() << std::endl;
-	begin();
-	end();
-	std::cout << std::boolalpha << table.defineKey("Hello") << std::endl;
-	std::cout << std::boolalpha << table.defineKey("Name") << std::endl;
-	crossJoin(Table(), Table());
-	naturalJoin(Table(), Table());
-	routines("Hello");
-	std::cout << "Table: All Functions Work!" << std::endl;
-}
-
 bool Database::Table::deleteRecord(int index) {
 	if (index >= allRecords.size()) {
 		return false;

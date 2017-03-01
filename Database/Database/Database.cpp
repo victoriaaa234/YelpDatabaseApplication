@@ -61,22 +61,6 @@ Database::Table Database::Database::query(std::string select, std::string from, 
 	return tb; // Return the result.
 }
 
-void Database::Database::testLinkage() {
-	Table table = Table();
-	addTable(table,"Hello");
-	std::cout << "Database Size: ";
-	std::cout << getTables().size() << std::endl;
-	for (unsigned int i = 0; i < listTables().size(); i++) {
-		std::cout << listTables()[i] << std::endl;
-	}
-	dropTable("Hello");
-	for (unsigned int i = 0; i < listTables().size(); i++) {
-		std::cout << listTables()[i] << std::endl;
-	}
-	//query("Select", "From", "Where");
-	std::cout << "Database: All Functions Work!" << std::endl;
-}
-
 Database::Table Database::Database::findTable(std::string from) {
 	database::iterator databaseTablesIterator = databaseTables.find(from);
 	return databaseTablesIterator->second;

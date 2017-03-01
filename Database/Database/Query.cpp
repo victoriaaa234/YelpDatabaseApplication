@@ -109,19 +109,23 @@ std::vector<std::string> Database::Database::Query::getParsedWhere() {
 
 Database::Table Database::Database::Query::getResult() { // Generates the result of the query.
 
+	// Assume all records satisfy the where clause.
 	std::vector<Record> records = originalTable.getAllRecords();
 
+	// Create a list to remove in reverse order to not affect the rows while deleting.
 	std::list<int> invalidRecords;
 
-	for (int i = 0; i < records.size(); i++) {
+	for (int i = 0; i < records.size(); i++) { // Validating each record.
+
 		Record rd = records[i];
-		bool isValid = true;
 
-		for (int j = 0; j < validationRules.size(); j++) {
+		bool isValid = true; // Assume that the record satisfies the where clause.
 
-			bool result = validationRules[j].evaluate(rd);
+		for (int j = 0; j < validationRules.size(); j++) { // Traverse through all rules.
+
+			bool result = validationRules[j].evaluate(rd); // Validate.
 			
-			if (j == 0) {
+			if (j == 0) { // First is always 
 				isValid = isValid && result;
 			}
 
@@ -129,8 +133,11 @@ Database::Table Database::Database::Query::getResult() { // Generates the result
 				if (validationOperations[j - 1].value == "OR") {
 					isValid = isValid || result;
 				}
-				else {
+				else if (validationOperations[j-1].value == "AND") {
 					isValid = isValid && result;
+				}
+				else if (validationOperations[j - 1].value == "NOT") {
+					isValid = isValid && !result;
 				}
 			}
 
@@ -155,9 +162,9 @@ Database::Table Database::Database::Query::getResult() { // Generates the result
 }
 
 std::vector<std::string> Database::Database::Query::parseWhere(std::string whereClause) {
-	using namespace std;
+
 	Tokenizer tk(whereClause);
-	vector<string> attr = originalTable.getAttributes();
+	std::vector<std::string> attr = originalTable.getAttributes();
 
 	while (tk.hasNext()) {
 		Token token = tk.peek();

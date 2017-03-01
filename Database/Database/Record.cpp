@@ -33,15 +33,6 @@ bool Database::Record::remove(unsigned int index) {
 	return true;
 }
 
-
-void Database::Record::testLinkage() {
-	std::cout << "Size: " << getSize() << std::endl;
-	set(4, "hello");
-	std::cout << get(4) << std::endl;
-	std::cout << get(3) << std::endl;
-	std::cout << "Record: All Functions Work!" << std::endl;
-}
-
 void Database::Record::print() {
 	for (int i = 0; i < record.size(); i++) {
 		std::cout << record[i] << " ";

@@ -8,11 +8,8 @@
 int main()
 {
 	Database::Database db = Database::Database();
-	db.testLinkage();
 	Database::Table table = Database::Table();
-	table.testLinkage();
 	Database::Record record = Database::Record(5);
-	record.testLinkage();
     return 0;
 }
 
