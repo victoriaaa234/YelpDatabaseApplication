@@ -81,6 +81,38 @@ std::vector<std::string> Database::Database::Query::getParsedWhere() {
 
 Database::Table Database::Database::Query::getResult() { // Generates the result of the query.
 
+	std::vector<Record> records = originalTable.getAllRecords();
+
+	std::list<int> invalidRecords;
+
+	for (int i = 0; i < records.size(); i++) {
+		Record rd = records[i];
+		bool isValid = true;
+
+		for (int j = 0; j < validationRules.size(); j++) {
+
+			bool result = validationRules[j].evaluate(rd);
+			
+			if (j == 0) {
+				isValid = isValid && result;
+			}
+
+			else if (j > 0 && j < validationRules.size()) {
+				if (validationOperations[j - 1].value == "OR") {
+					isValid = isValid || result;
+				}
+				else {
+					isValid = isValid && result;
+				}
+			}
+
+		}
+		if (!isValid) invalidRecords.push_front(i);
+	}
+
+	for (int i : invalidRecords) {
+		originalTable.deleteRecord(i);
+	}
 	/* Last step is to remove the attributes that were not present in the select query. The select query should be parsed in the constructor
 	** and assigned to attributes. From this, the code below removes any attribute that is present in the where table but not in select. 
 	*/
@@ -140,12 +172,9 @@ std::vector<std::string> Database::Database::Query::parseWhere(std::string where
 		}
 		else if (token.type == "_Symbol") {
 			Token t = tk.get();
+			validationOperations.push_back(t);
 		}
 
-	}
-
-	for (whereComponent wC : validationRules) {
-		cout << wC.binOp << endl;
 	}
 
 	return parsedWhere;

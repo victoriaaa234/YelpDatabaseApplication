@@ -25,6 +25,7 @@ namespace Database {
 		DATABASE_API std::string get(unsigned int index);
 		DATABASE_API void testLinkage();
 		DATABASE_API bool remove(unsigned int index);
+		DATABASE_API void print();
 	};
 
 	class Table;
@@ -83,12 +84,12 @@ namespace Database {
 				std::string value; // Value to compare.
 				std::string childVerifyRule; // If there is another chaining child, follow this rule. 
 				
-				whereComponent(int id, std::string bin, std::string val, std::string child); // constructor
+				whereComponent(int id, std::string bin, std::string val, std::string child);
 				bool evaluate(Record rd);
 			};
 
 			std::vector<whereComponent> validationRules;
-			std::vector<whereComponent> validationOperations;
+			std::vector<Token> validationOperations;
 			std::vector<std::string> attributes;
 			std::vector<std::string> parsedWhere;
 

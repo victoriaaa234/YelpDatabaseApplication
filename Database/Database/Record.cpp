@@ -41,3 +41,9 @@ void Database::Record::testLinkage() {
 	std::cout << get(3) << std::endl;
 	std::cout << "Record: All Functions Work!" << std::endl;
 }
+
+void Database::Record::print() {
+	for (int i = 0; i < record.size(); i++) {
+		std::cout << record[i] << " ";
+	}
+}

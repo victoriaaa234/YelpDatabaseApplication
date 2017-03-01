@@ -283,7 +283,7 @@ void DatabaseTest::QueryTest() {
 
 	cout << endl << endl << "!!------------------------- QUERY TABLE ------------------------!!" << endl;
 
-	Database::Table result = db.query("ID, Name, Food", "Test", "Name > Kevin AND ID = 1 OR Color < Red1");
+	Database::Table result = db.query("ID, Name, Food", "Test", "Name > Kevin1 AND ID < 5");
 	result.printTable();
 
 
