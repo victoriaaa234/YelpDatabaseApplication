@@ -34,7 +34,7 @@ bool Database::Record::remove(unsigned int index) {
 }
 
 void Database::Record::print() {
-	for (int i = 0; i < record.size(); i++) {
+	for (unsigned int i = 0; i < record.size(); i++) {
 		std::cout << record[i] << " ";
 	}
 }

@@ -3,7 +3,7 @@
 #include <list>
 #include <vector>
 
-struct Token{
+struct Token {
 	std::string value;
 	std::string type = "_OTHER";
 };
@@ -26,4 +26,3 @@ public:
 	Token peek();
 	~Tokenizer();
 };
-

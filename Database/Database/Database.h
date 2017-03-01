@@ -62,6 +62,8 @@ namespace Database {
 		DATABASE_API std::map<std::string, std::string> routines(std::string name);
 		DATABASE_API std::vector<Record> getAllRecords();
 		DATABASE_API Record& getRecord(int index);
+		bool isNumber(std::string s);
+
 
 		DATABASE_API void printTable();
 		DATABASE_API bool deleteRecord(unsigned int index);
@@ -77,12 +79,12 @@ namespace Database {
 		class Query {
 
 			struct whereComponent {
-				int index;
+				unsigned int index;
 				std::string binOp; // Binary operation to perform.
 				std::string value; // Value to compare.
 				std::string childVerifyRule; // If there is another chaining child, follow this rule. 
 				
-				whereComponent(int id, std::string bin, std::string val, std::string child);
+				whereComponent(unsigned int id, std::string bin, std::string val, std::string child);
 				bool evaluate(Record rd);
 			};
 

@@ -50,9 +50,7 @@ database Database::Database::getTables() {
 }
 
 Database::Table Database::Database::query(std::string select, std::string from, std::string wherever) {
-	std::cout << "Database: Query" << std::endl;
-
-	table = findTable(from); // Search for the table. @TODO Throw error if no table found.
+	table = findTable(from); // Search for the table.
 
 	Query query = Query(select, wherever, table); // Create a Query from the parameters passed.
 	
@@ -63,6 +61,9 @@ Database::Table Database::Database::query(std::string select, std::string from, 
 
 Database::Table Database::Database::findTable(std::string from) {
 	database::iterator databaseTablesIterator = databaseTables.find(from);
+	if (databaseTablesIterator == databaseTables.end()) {
+		std::cerr << "No table is found!" << std::endl;
+	}
 	return databaseTablesIterator->second;
 }
 

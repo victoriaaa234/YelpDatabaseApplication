@@ -243,6 +243,18 @@ Database::Table Database::Table::naturalJoin(Table tblOne, Table tblTwo) {
 	return naturalJoinTable;
 }
 
+bool Database::Table::isNumber(std::string s)
+{
+	std::string::const_iterator it = s.begin();
+	while (it != s.end() && isdigit(*it)) {
+		++it;
+	}
+	if (!s.empty() && it == s.end()) {
+		return true;
+	}
+	return false;
+}
+
 std::map<std::string, std::string> Database::Table::routines(std::string name) {
 	std::map<std::string, std::string> procedures;
 	std::string minimum = "";
@@ -271,11 +283,27 @@ std::map<std::string, std::string> Database::Table::routines(std::string name) {
 					maximum = allRecords[i].get(attributeLocation);
 					j++;
 				}
-				if (maximum < allRecords[i].get(attributeLocation)) {
+				long maximumNum = atoi(maximum.c_str());
+				long minimumNum = atoi(minimum.c_str());
+				long attributeNum = atoi(allRecords[i].get(attributeLocation).c_str());
+
+				if (!isNumber(maximum) && !isNumber(minimum) && !isNumber(allRecords[i].get(attributeLocation))) {
+					if (maximum < allRecords[i].get(attributeLocation)) {
+						maximum = allRecords[i].get(attributeLocation);
+					}
+					if (minimum > allRecords[i].get(attributeLocation)) {
+						minimum = allRecords[i].get(attributeLocation);
+					}
+
+				}
+				else if (maximumNum <= attributeNum) {
 					maximum = allRecords[i].get(attributeLocation);
 				}
-				if (minimum > allRecords[i].get(attributeLocation)) {
+				else if (minimumNum >= attributeNum) {
 					minimum = allRecords[i].get(attributeLocation);
+				}
+				else {
+					// Don't assign.
 				}
 			}
 		}
@@ -295,4 +323,3 @@ bool Database::Table::deleteRecord(unsigned int index) {
 	allRecords.erase(allRecords.begin() + index);
 	return true;
 }
-

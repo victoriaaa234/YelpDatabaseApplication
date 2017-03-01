@@ -7,7 +7,7 @@
 #include "stdafx.h"
 #include "Tokenizer.h"
 
-Database::Database::Query::whereComponent::whereComponent(int id, std::string bin, std::string val, std::string child) {
+Database::Database::Query::whereComponent::whereComponent(unsigned int id, std::string bin, std::string val, std::string child) {
 	index = id;
 	binOp = bin;
 	value = val;
@@ -115,17 +115,17 @@ Database::Table Database::Database::Query::getResult() { // Generates the result
 	// Create a list to remove in reverse order to not affect the rows while deleting.
 	std::list<int> invalidRecords;
 
-	for (int i = 0; i < records.size(); i++) { // Validating each record.
+	for (unsigned int i = 0; i < records.size(); i++) { // Validating each record.
 
 		Record rd = records[i];
 
 		bool isValid = true; // Assume that the record satisfies the where clause.
 
-		for (int j = 0; j < validationRules.size(); j++) { // Traverse through all rules.
+		for (unsigned int j = 0; j < validationRules.size(); j++) { // Traverse through all rules.
 
 			bool result = validationRules[j].evaluate(rd); // Validate.
 			
-			if (j == 0) { // First is always 
+			if (j == 0) {
 				isValid = isValid && result;
 			}
 
@@ -145,7 +145,7 @@ Database::Table Database::Database::Query::getResult() { // Generates the result
 		if (!isValid) invalidRecords.push_front(i);
 	}
 
-	for (int i : invalidRecords) {
+	for (unsigned int i : invalidRecords) {
 		originalTable.deleteRecord(i);
 	}
 	/* Last step is to remove the attributes that were not present in the select query. The select query should be parsed in the constructor
@@ -171,12 +171,12 @@ std::vector<std::string> Database::Database::Query::parseWhere(std::string where
 
 		if (token.type == "_OTHER") {
 
-			Token identifier = tk.get(); // Relying on default constructor for now.
+			Token identifier = tk.get();
 			// Find index.
 			
-			int pos = -1;
+			unsigned int pos = -1;
 
-			for (int i = 0; i < attr.size(); i++) {
+			for (unsigned int i = 0; i < attr.size(); i++) {
 				if (attr[i] == identifier.value) {
 					pos = i;
 					break;
@@ -184,19 +184,19 @@ std::vector<std::string> Database::Database::Query::parseWhere(std::string where
 			}
 
 			if (pos == -1) {
-				// throw error. attribute not found.
+				// Attribute not found.
 			}
 
 			Token op = tk.get();
 
 			if (op.type != "_BinOp") {
-				// throw error. not matching format.
+				// Not matching format!
 			}
 
 			Token val = tk.get();
 
 			if (op.type != "_OTHER") {
-				// throw error. either symbol or binary operation that is invalid.
+				// Symbol or binary operation is invalid.
 			}
 
 			whereComponent condition(pos, op.value, val.value, "AND");
@@ -213,4 +213,3 @@ std::vector<std::string> Database::Database::Query::parseWhere(std::string where
 
 	return parsedWhere;
 }
-

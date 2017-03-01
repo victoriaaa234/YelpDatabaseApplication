@@ -96,9 +96,9 @@ void DatabaseTest::tableBegin() {
 	Database::Record r2(2);
 	r1.set(0, "char1");
 	r2.set(0, "char2");
-	std::vector<std::string> attributes = { "Victoria", "Kevin" }; // <3
+	std::vector<std::string> attributes = { "Victoria", "Kevin" };
 
-	Database::Table tb(attributes); // This was not part of the original test.
+	Database::Table tb(attributes);
 
 	tb.insert(r1);
 	tb.insert(r2);
@@ -108,7 +108,7 @@ void DatabaseTest::tableBegin() {
 
 void DatabaseTest::tableEnd() {
 	//Creates an empty table, asserts that begin() and end() are equal
-	std::vector<std::string> att = { "Victoria", "Kevin" }; // <3
+	std::vector<std::string> att = { "Victoria", "Kevin" };
 	Database::Table tb = Database::Table(att);
 
 	Database::tblIterator it = tb.begin();
@@ -141,9 +141,9 @@ void DatabaseTest::join() {
 	Database::Record r1(3);
 	r1.set(0, "Kevin");
 	Database::Record r2(3);
-	r2.set(0, "Victoria");
+	r2.set(0, "Yerania");
 	Database::Record r3(3);
-	r3.set(0, "Yerania");
+	r3.set(0, "Victoria");
 	t1.insert(r1);
 	t1.insert(r2);
 	t1.insert(r3);
@@ -346,12 +346,8 @@ void DatabaseTest::run() {
 	getTableSize();
 	tableBegin();
 	tableEnd();
-	std::cout << "Kevin's Natural Join Test" << std::endl;
 	testNaturalJoin();
-	std::cout << "Natural Join works" << std::endl;
-	std::cout << "Kevin's Cross Join Test" << std::endl;
 	testCrossJoin();
-	std::cout << "Cross Join works" << std::endl;
 	join();
 	std::cout << "Table Tests Passed" << std::endl;
 	addDropTable();
