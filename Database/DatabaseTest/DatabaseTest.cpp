@@ -200,6 +200,7 @@ void DatabaseTest::query() {
 	//Create test db
 	Database::Database db = Database::Database();
 	db.addTable(t, "Test");
+	t.printTable();
 
 	//Test wildcard operator
 	Database::Table queriedTable = db.query("*", "Test", "True");
@@ -283,7 +284,7 @@ void DatabaseTest::QueryTest() {
 
 	cout << endl << endl << "!!------------------------- QUERY TABLE ------------------------!!" << endl;
 
-	Database::Table result = db.query("ID, Name, Food", "Test", "Name > Kevin1 AND ID < 5");
+	Database::Table result = db.query("ID, Name, Food", "Test", "ID > 5");
 	result.printTable();
 
 
@@ -308,7 +309,7 @@ void DatabaseTest::run() {
 	std::cout << "All Tests Passed" << std::endl;*/
 
 	//std::cout << "Group 17 " << std::endl;
-	//query();
+	query();
 
 	std::cout << "Kevin's Query Test" << std::endl;
 	QueryTest();

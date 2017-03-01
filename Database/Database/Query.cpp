@@ -19,21 +19,49 @@ bool Database::Database::Query::whereComponent::evaluate(Record rd) {
 	if (index >= rd.getSize()) return false;
 
 	std::string valueToCompare = rd.get(index);
+	char* p;
+	long converted = strtol(valueToCompare.c_str(), &p, 10);
+	long converted2 = strtol(value.c_str(), &p, 10);
 
 	if (binOp == "=") {
-		return valueToCompare == value;
+		if (*p) {
+			return valueToCompare == value;
+		}
+		else {
+			return converted == converted2;
+		}
 	}
 	else if (binOp == "<") {
-		return valueToCompare < value;
+		if (*p) {
+			return valueToCompare == value;
+		}
+		else {
+			return converted < converted2;
+		}
 	}
 	else if (binOp == ">") {
-		return valueToCompare > value;
+		if (*p) {
+			return valueToCompare == value;
+		}
+		else {
+			return converted > converted2;
+		}
 	}
 	else if (binOp == "<=") {
-		return valueToCompare <= value;
+		if (*p) {
+			return valueToCompare == value;
+		}
+		else {
+			return converted <= converted2;
+		}
 	}
 	else if (binOp == ">=") {
-		return valueToCompare >= value;
+		if (*p) {
+			return valueToCompare == value;
+		}
+		else {
+			return converted >= converted2;
+		}
 	}
 	else {
 		//invalid operation.
@@ -128,7 +156,6 @@ Database::Table Database::Database::Query::getResult() { // Generates the result
 
 std::vector<std::string> Database::Database::Query::parseWhere(std::string whereClause) {
 	using namespace std;
-	cout << "WHERE: " << whereClause << endl;
 	Tokenizer tk(whereClause);
 	vector<string> attr = originalTable.getAttributes();
 

@@ -12,7 +12,7 @@ class Tokenizer
 {
 	std::string delimiters = " ,*";
 
-	std::vector<std::string> keywords = { "AND", "OR", "NOT", "TRUE" };
+	std::vector<std::string> keywords = { "AND", "OR", "NOT", "True" };
 	std::vector<std::string> binaryOperations = { "=", "<", ">", "<=", ">=" };
 
 	std::string strToParse;
