@@ -76,10 +76,23 @@ namespace Database {
 		Table table;
 		Table outputTable;
 		class Query {
+
+			struct whereComponent {
+				int index;
+				std::string binOp; // Binary operation to perform.
+				std::string value; // Value to compare.
+				std::string childVerifyRule; // If there is another chaining child, follow this rule. 
+				
+				whereComponent(int id, std::string bin, std::string val, std::string child); // constructor
+				bool evaluate(Record rd);
+			};
+
+			std::vector<whereComponent> validationRules;
+			std::vector<whereComponent> validationOperations;
 			std::vector<std::string> attributes;
 			std::vector<std::string> parsedWhere;
+
 			Table originalTable;
-			Tokenizer* tk;
 		public:
 			Query(std::string select, std::string wherever, Table table);
 			std::vector<std::string> parseSelect(std::string select, Table table);

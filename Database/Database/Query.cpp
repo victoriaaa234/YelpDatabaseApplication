@@ -7,8 +7,41 @@
 #include "stdafx.h"
 #include "Tokenizer.h"
 
-typedef std::map<std::string, Database::Table> database;
+Database::Database::Query::whereComponent::whereComponent(int id, std::string bin, std::string val, std::string child) {
+	index = id;
+	binOp = bin;
+	value = val;
+	childVerifyRule = child;
+}
 
+bool Database::Database::Query::whereComponent::evaluate(Record rd) {
+
+	if (index >= rd.getSize()) return false;
+
+	std::string valueToCompare = rd.get(index);
+
+	if (binOp == "=") {
+		return valueToCompare == value;
+	}
+	else if (binOp == "<") {
+		return valueToCompare < value;
+	}
+	else if (binOp == ">") {
+		return valueToCompare > value;
+	}
+	else if (binOp == "<=") {
+		return valueToCompare <= value;
+	}
+	else if (binOp == ">=") {
+		return valueToCompare >= value;
+	}
+	else {
+		//invalid operation.
+	}
+
+	return false;
+}
+typedef std::map<std::string, Database::Table> database;
 
 Database::Database::Query::Query(std::string select, std::string wherever, Table table) {
 	originalTable = table;
@@ -28,8 +61,8 @@ std::vector<std::string> Database::Database::Query::parseSelect(std::string sele
 		Tokenizer tk(select);
 
 		while (tk.hasNext()) {
-			std::string token = tk.get();
-			tableAttributes.push_back(token);
+			Token token = tk.get();
+			tableAttributes.push_back(token.value);
 		}
 
 	}
@@ -65,11 +98,56 @@ std::vector<std::string> Database::Database::Query::parseWhere(std::string where
 	using namespace std;
 	cout << "WHERE: " << whereClause << endl;
 	Tokenizer tk(whereClause);
+	vector<string> attr = originalTable.getAttributes();
 
 	while (tk.hasNext()) {
-		string token = tk.get();
-		cout << token << endl;
+		Token token = tk.peek();
+
+		if (token.type == "_OTHER") {
+
+			Token identifier = tk.get(); // Relying on default constructor for now.
+			// Find index.
+			
+			int pos = -1;
+
+			for (int i = 0; i < attr.size(); i++) {
+				if (attr[i] == identifier.value) {
+					pos = i;
+					break;
+				}
+			}
+
+			if (pos == -1) {
+				// throw error. attribute not found.
+			}
+
+			Token op = tk.get();
+
+			if (op.type != "_BinOp") {
+				// throw error. not matching format.
+			}
+
+			Token val = tk.get();
+
+			if (op.type != "_OTHER") {
+				// throw error. either symbol or binary operation that is invalid.
+			}
+
+			whereComponent condition(pos, op.value, val.value, "AND");
+
+			validationRules.push_back(condition);
+
+		}
+		else if (token.type == "_Symbol") {
+			Token t = tk.get();
+		}
+
+	}
+
+	for (whereComponent wC : validationRules) {
+		cout << wC.binOp << endl;
 	}
 
 	return parsedWhere;
 }
+

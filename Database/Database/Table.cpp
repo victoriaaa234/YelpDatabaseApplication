@@ -321,3 +321,4 @@ bool Database::Table::deleteRecord(int index) {
 	allRecords.erase(allRecords.begin() + index);
 	return true;
 }
+

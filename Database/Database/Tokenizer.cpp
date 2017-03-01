@@ -19,11 +19,17 @@ Tokenizer::Tokenizer(std::string& str)
 	}
 }
 
-std::string Tokenizer::get() {
-
-	std::string token = tokens.front();
+Token Tokenizer::get() {
+	Token tk;
+	tk.value = tokens.front();
+	if (std::find(keywords.begin(), keywords.end(), tk.value) != keywords.end()) { // Found a keyword
+		tk.type = "_Symbol";
+	}
+	else if (std::find(binaryOperations.begin(), binaryOperations.end(), tk.value) != binaryOperations.end()) { // Found Binary
+		tk.type = "_BinOp";
+	}
 	tokens.pop_front();
-	return token;
+	return tk;
 }
 
 bool Tokenizer::hasNext() {
@@ -34,36 +40,23 @@ void Tokenizer::unget(std::string token) {
 	tokens.push_front(token);
 }
 
-unsigned int Tokenizer::getSize() {
+unsigned int Tokenizer::size() {
 	return tokens.size();
 }
 
+Token Tokenizer::peek() {
+	Token tk;
+	tk.value = tokens.front();
+	if (std::find(keywords.begin(), keywords.end(), tk.value) != keywords.end()) { // Found a keyword
+		tk.type = "_Symbol";
+	}
+	else if (std::find(binaryOperations.begin(), binaryOperations.end(), tk.value) != binaryOperations.end()) { // Found Binary
+		tk.type = "_BinOp";
+	}
+	return tk;
+}
 
 Tokenizer::~Tokenizer()
 {
 
 }
-
-
-/*#include <string>
-#include <vector>
-
-//! Tokenize the given string str with given delimiter. If no delimiter is given whitespace is used.
-void Tokenize(const std::string& str, std::vector<std::string>& tokens, const std::string& delimiters = " ")
-{
-	tokens.clear();
-	// Skip delimiters at beginning.
-	std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
-	// Find first "non-delimiter".
-	std::string::size_type pos = str.find_first_of(delimiters, lastPos);
-
-	while (std::string::npos != pos || std::string::npos != lastPos)
-	{
-		// Found a token, add it to the vector.
-		tokens.push_back(str.substr(lastPos, pos - lastPos));
-		// Skip delimiters.  Note the "not_of"
-		lastPos = str.find_first_not_of(delimiters, pos);
-		// Find next "non-delimiter"
-		pos = str.find_first_of(delimiters, lastPos);
-	}
-}*/
