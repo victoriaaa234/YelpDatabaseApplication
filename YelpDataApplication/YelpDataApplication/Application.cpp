@@ -321,10 +321,7 @@ Table addReviewRecords(std::vector<struct review> reviews) {
 	return reviewTable;
 }
 
-/*Team that gave us database implemented iterators wrong. Therefore, we are unable to use
-the iterators from their database to traverse the records of a specific table.*/
-
-void displayUserInfo(std::string userId, std::vector<struct user> users) {
+void displayUserInfo(std::string userId, Table userTable) {
 	int location = -1;
 	for (unsigned int i = 0; i < users.size(); i++) {
 		if (users[i].userId == userId) {
@@ -387,18 +384,10 @@ int main() {
 	Table businessTable = addBusinessRecords(businesses);
 	Table userTable = addUserRecords(users);
 	Table reviewTable = addReviewRecords(reviews);
-	//db.addTable("Business", businessTable);
-	//db.addTable("User", userTable);
-	//db.addTable("Review", reviewTable);
+	db.addTable("Business", businessTable);
+	db.addTable("User", userTable);
+	db.addTable("Review", reviewTable);
 
-	/*std::vector<struct business> businesses = parseBusiness();
-	std::vector<struct user> users = parseUser();
-	std::vector<struct review> reviews = parseReview();
-	Database db = Database();
-
-
-	
-	
 	std::string choice;
 	std::cout << "Welcome to the Yelp Database Application!" << std::endl;
 	std::cout << "What would you like to do?" << std::endl;
@@ -410,7 +399,7 @@ int main() {
 		std::cout << "What is User ID of the User?" << std::endl;
 		std::string userId;
 		std::cin >> userId;
-		displayUserInfo(userId, users);
+		displayUserInfo(userId, userTable);
 	}
 	else if (choice == "DB") {
 

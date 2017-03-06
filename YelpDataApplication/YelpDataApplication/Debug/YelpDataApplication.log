@@ -1,2 +1,4 @@
-﻿  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
-  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)
+﻿  Application.cpp
+  LINK : C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe not found or not built by the last incremental link; performing full link
+  YelpDataApplication.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
+  YelpDataApplication.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)
