@@ -1,3 +1,6 @@
 ﻿  Application.cpp
-  YelpDataApplication.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
-  YelpDataApplication.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)
+c:\users\kevin j nguyen\desktop\csce-315-database-project\yelpdataapplication\yelpdataapplication\application.cpp(367): warning C4018: '<': signed/unsigned mismatch
+c:\users\kevin j nguyen\desktop\csce-315-database-project\yelpdataapplication\yelpdataapplication\application.cpp(397): warning C4018: '<': signed/unsigned mismatch
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
+  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)
