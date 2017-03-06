@@ -317,9 +317,229 @@ Table addReviewRecords(std::vector<struct review> reviews) {
 		record[9] = reviews[i].type;
 		reviewTable.insertRecord(record);
 	}
+	reviewTable.specifyKey("BusinessID");
 	return reviewTable;
 }
 
+void displayUserInfo(Table table) {
+	for (unsigned int i = 0; i < table.tableRecord.size(); i++) {
+		std::cout << "User found!" << std::endl;
+		std::cout << "Name: " << table.tableRecord[i][1] << std::endl;
+		std::cout << "Review Count: " << table.tableRecord[i][2] << std::endl;
+		std::cout << "Yelping Since: " << table.tableRecord[i][3] << std::endl;
+		std::cout << "Friends: " << table.tableRecord[i][4] << std::endl;
+		std::cout << "Useful: " << table.tableRecord[i][5] << std::endl;
+		std::cout << "Funny: " << table.tableRecord[i][6] << std::endl;
+		std::cout << "Cool: " << table.tableRecord[i][7] << std::endl;
+		std::cout << "Fans: " << table.tableRecord[i][8] << std::endl;
+		std::cout << "Elite: " << table.tableRecord[i][9] << std::endl;
+		std::cout << "Average Stars: " << table.tableRecord[i][10] << std::endl;
+		std::cout << "Compliment Hot: " << table.tableRecord[i][11] << std::endl;
+		std::cout << "Compliment More: " << table.tableRecord[i][12] << std::endl;
+		std::cout << "Compliment Profile: " << table.tableRecord[i][13] << std::endl;
+		std::cout << "Compliment Cute: " << table.tableRecord[i][14] << std::endl;
+		std::cout << "Compliment List: " << table.tableRecord[i][15] << std::endl;
+		std::cout << "Compliment Note: " << table.tableRecord[i][16] << std::endl;
+		std::cout << "Compliment Plain: " << table.tableRecord[i][17] << std::endl;
+		std::cout << "Compliment Cool: " << table.tableRecord[i][18] << std::endl;
+		std::cout << "Compliment Funny: " << table.tableRecord[i][19] << std::endl;
+		std::cout << "Compliment Writer: " << table.tableRecord[i][20] << std::endl;
+		std::cout << "Compliment Photos: " << table.tableRecord[i][21] << std::endl;
+		std::cout << "Type: " << table.tableRecord[i][22] << std::endl;
+	}
+}
+
+void displayBusinessInfo(Table table) {
+	for (unsigned int i = 0; i < table.tableRecord.size(); i++) {
+		std::cout << "Business found!" << std::endl;
+		std::cout << "Name: " << table.tableRecord[i][1] << std::endl;
+		std::cout << "Neighborhood: " << table.tableRecord[i][2] << std::endl;
+		std::cout << "Address: " << table.tableRecord[i][3] << std::endl;
+		std::cout << "City: " << table.tableRecord[i][4] << std::endl;
+		std::cout << "State: " << table.tableRecord[i][5] << std::endl;
+		std::cout << "Postal Code: " << table.tableRecord[i][6] << std::endl;
+		std::cout << "Latitude: " << table.tableRecord[i][7] << std::endl;
+		std::cout << "Longitude: " << table.tableRecord[i][8] << std::endl;
+		std::cout << "Stars: " << table.tableRecord[i][9] << std::endl;
+		std::cout << "Review Count: " << table.tableRecord[i][10] << std::endl;
+		std::cout << "Is Open: " << table.tableRecord[i][11] << std::endl;
+		std::cout << "Attributes: " << table.tableRecord[i][12] << std::endl;
+		std::cout << "Categories: " << table.tableRecord[i][13] << std::endl;
+		std::cout << "Hours: " << table.tableRecord[i][14] << std::endl;
+		std::cout << "Type: " << table.tableRecord[i][15] << std::endl;
+	}
+}
+
+void showBusinessReviews(Table table) {
+	for (unsigned int i = 0; i < table.tableRecord.size(); i++) {
+		std::cout << "Review ID: " << table.tableRecord[i][15] << std::endl;
+		std::cout << "User ID: " << table.tableRecord[i][16] << std::endl;
+		std::cout << "Business ID: " << table.tableRecord[i][0] << std::endl;
+		std::cout << "Stars: " << table.tableRecord[i][18] << std::endl;
+		std::cout << "Date: " << table.tableRecord[i][19] << std::endl;
+		std::cout << "Text: " << table.tableRecord[i][20] << std::endl;
+		std::cout << "Useful: " << table.tableRecord[i][21] << std::endl;
+		std::cout << "Funny: " << table.tableRecord[i][22] << std::endl;
+		std::cout << "Cool: " << table.tableRecord[i][23] << std::endl;
+		std::cout << "Type: " << table.tableRecord[i][24] << std::endl;
+	}
+}
+
+void showUserReviews(Table table) {
+	for (unsigned int i = 0; i < table.tableRecord.size(); i++) {
+		std::cout << "Review ID: " << table.tableRecord[i][15] << std::endl;
+		std::cout << "Business ID: " << table.tableRecord[i][17] << std::endl;
+		std::cout << "Stars: " << table.tableRecord[i][18] << std::endl;
+		std::cout << "Date: " << table.tableRecord[i][19] << std::endl;
+		std::cout << "Text: " << table.tableRecord[i][20] << std::endl;
+		std::cout << "Useful: " << table.tableRecord[i][21] << std::endl;
+		std::cout << "Funny: " << table.tableRecord[i][22] << std::endl;
+		std::cout << "Cool: " << table.tableRecord[i][23] << std::endl;
+		std::cout << "Type: " << table.tableRecord[i][24] << std::endl;
+	}
+}
+
+Table crossJoin(Table tblOne, Table tblTwo) {
+	if (tblOne.getAttributeNames().empty()) {
+		if (tblTwo.getAttributeNames().empty()) {
+			return Table();
+		}
+		else {
+			return tblTwo;
+		}
+	}
+	else if (!tblOne.getAttributeNames().empty()) {
+		if (tblTwo.getAttributeNames().empty()) {
+			return tblOne;
+		}
+	}
+	std::vector<std::string> totalAttributes;
+	unsigned int recordIndex = 0;
+	unsigned int tableOneIndex = 0;
+	unsigned int tableTwoIndex = 0;
+	std::vector<std::string> tblOneAttributes = tblOne.getAttributeNames();
+	std::vector<std::string> tblTwoAttributes = tblTwo.getAttributeNames();
+	unsigned int count = 0;
+	for (unsigned int i = 0; i < tblOneAttributes.size(); i++) {
+		for (unsigned int j = 0; j < tblTwoAttributes.size(); j++) {
+			if (tblOneAttributes[i] == tblTwoAttributes[j]) {
+				count++;
+				std::string attributeOne = tblOneAttributes[i];
+				std::string attributeTwo = tblTwoAttributes[j];
+				attributeOne = std::to_string(count) + attributeOne;
+				count++;
+				attributeTwo = std::to_string(count) + attributeTwo;
+				tblOneAttributes[i] = attributeOne;
+				tblTwoAttributes[j] = attributeTwo;
+			}
+			count = 0;
+		}
+	}
+	totalAttributes = tblOneAttributes;
+	totalAttributes.insert(totalAttributes.end(), tblTwoAttributes.begin(), tblTwoAttributes.end());
+	unsigned int attributeSize = totalAttributes.size();
+	Table crossJoinTable(totalAttributes);
+	for (unsigned int i = 0; i < tblOne.getTableSize(); i++) {
+		for (unsigned int j = 0; j < tblTwo.getTableSize(); j++) {
+			Record newRecord(attributeSize);
+			while (tableOneIndex < tblOneAttributes.size()) {
+				newRecord[recordIndex] = tblOne.tableRecord[i][tableOneIndex];
+				tableOneIndex++;
+				recordIndex++;
+			}
+			while (tableTwoIndex < tblTwoAttributes.size()) {
+				newRecord[recordIndex] = tblTwo.tableRecord[j][tableTwoIndex];
+				tableTwoIndex++;
+				recordIndex++;
+			}
+			tableTwoIndex = 0;
+			tableOneIndex = 0;
+			recordIndex = 0;
+			crossJoinTable.insertRecord(newRecord);
+		}
+	}
+	return crossJoinTable;
+}
+Table naturalJoin(Table tblOne, Table tblTwo) {
+	if (tblOne.getAttributeNames().empty()) {
+		if (tblTwo.getAttributeNames().empty()) {
+			std::cerr << "Both tables are empty!";
+		}
+		else {
+			std::cerr << "There is no key!";
+		}
+	}
+	else if (!tblOne.getAttributeNames().empty()) {
+		if (tblTwo.getAttributeNames().empty()) {
+			std::cerr << "There are no attributes matching!";
+		}
+	}
+	unsigned int tblOneAttribute = 0;
+	unsigned int tblTwoAttribute = 0;
+	std::vector<std::string> tblOneAttributes = tblOne.getAttributeNames();
+	std::vector<std::string> tblTwoAttributes = tblTwo.getAttributeNames();
+	bool verify = false;
+	std::string tableKey;
+	tableKey = tblTwo.getTableKey();
+	if (tblTwo.getTableKey() != "") {
+		for (unsigned int i = 0; i < tblOneAttributes.size(); i++) {
+			if (tblOneAttributes[i] == tblTwo.getTableKey()) {
+				verify = true;
+				tblOneAttribute = i;
+				break;
+			}
+		}
+	}
+	else {
+		std::cerr << "There is no key!";
+	}
+	for (unsigned int i = 0; i < tblTwoAttributes.size(); i++) {
+		if (tblTwoAttributes[i] == tableKey) {
+			tblTwoAttribute = i;
+			break;
+		}
+	}
+	if (!verify) {
+		std::cerr << "There are no attributes matching!";
+	}
+	unsigned int recordIndex = 0;
+	unsigned int tableOneIndex = 0;
+	std::vector<std::string> totalAttributes;
+	totalAttributes = tblOneAttributes;
+	for (unsigned int i = 0; i < tblTwoAttributes.size(); i++) {
+		if (tblTwoAttributes[i] != tableKey) {
+			totalAttributes.push_back(tblTwoAttributes[i]);
+		}
+	}
+	unsigned int attributeSize = totalAttributes.size();
+	unsigned int tblTwoElement = 0;
+	Table naturalJoinTable(totalAttributes);
+	for (unsigned int i = 0; i < tblOne.getTableSize(); i++) {
+		Record newRecord(attributeSize);
+		while (tableOneIndex < tblOneAttributes.size()) {
+			newRecord[recordIndex] = tblOne.tableRecord[i][tableOneIndex];
+			tableOneIndex++;
+			recordIndex++;
+		}
+		for (unsigned int j = 0; j < tblTwo.getTableSize(); j++) {
+			if (tblOne.tableRecord[i][tblOneAttribute] == tblTwo.tableRecord[j][tblTwoAttribute]) {
+				while (tblTwoElement < tblTwoAttributes.size()) {
+					if (tblTwoElement != tblTwoAttribute) {
+						newRecord[recordIndex] = tblTwo.tableRecord[j][tblTwoElement];
+						recordIndex++;
+					}
+					tblTwoElement++;
+				}
+				tblTwoElement = 0;
+				break;
+			}
+		}
+		tableOneIndex = 0;
+		recordIndex = 0;
+		naturalJoinTable.insertRecord(newRecord);
+	}
+	return naturalJoinTable;
+}
 int main() {
 
 	std::string businessJSONFilename = "business.json";
@@ -352,23 +572,50 @@ int main() {
 		std::cout << "What is User ID of the User?" << std::endl;
 		std::string userId;
 		std::cin >> userId;
-		//KpkOkG6RIf4Ra25Lhhxf1A
-		std::vector<std::string> attributes;
-		Table table = db.Querry("UserID", "User", "UserID = " + userId);
-		for (int i = 0; i < table.tableRecord.size(); i++) {
-
-		}
+		//Test string: KpkOkG6RIf4Ra25Lhhxf1A
+		Table table = db.Querry("*", "User", "UserID = " + userId);
+		displayUserInfo(table);
 	}
 	else if (choice == "DB") {
-
+		std::cout << "What is Business ID of the Business?" << std::endl;
+		std::string businessId;
+		std::cin >> businessId;
+		//Test string: 2aFiy99vNLklCx3T_tGS9A 
+		Table table = db.Querry("*", "Business", "BusinessID = " + businessId);
+		displayBusinessInfo(table);
 	}
 	else if (choice == "C") {
-
+		int choiceJoin;
+		std::cout << "Do you want to: " << std::endl;
+		std::cout << "1. Show reviews for a business?" << std::endl;
+		std::cout << "2. Show reviews for a user?" << std::endl;
+		std::cin >> choiceJoin;
+		// 1
+		if (choiceJoin == 1) {
+			//Test string: 2aFiy99vNLklCx3T_tGS9A 
+			std::cout << "What is Business ID of the Business?" << std::endl;
+			std::string businessId = "2aFiy99vNLklCx3T_tGS9A";
+			//std::cin >> businessId;
+			Table crossJoinTable;
+			crossJoinTable = crossJoin(businessTable, reviewTable);
+			db.addTable("BusinessReview", crossJoinTable);
+			//Table finalTable = db.Querry("*", "BusinessReview", "BusinessID = " + businessId);
+			//showBusinessReviews(finalTable);
+		}
+		else if (choiceJoin == 2) {
+			//Test string: KpkOkG6RIf4Ra25Lhhxf1A 
+			std::cout << "What is User ID of the User?" << std::endl;
+			std::string userId = "KpkOkG6RIf4Ra25Lhhxf1A";
+			//std::cin >> userId;
+			Table naturalJoinTable;
+			naturalJoinTable = naturalJoin(userTable, reviewTable);
+			db.addTable("UserReview", naturalJoinTable);
+			//Table finalTable = db.Querry("*", "UserReview", "UserID = " + userId);
+			//showUserReviews(finalTable);
+		}
 	}
 	else {
 
 	}
 	return 0;
 }
-
-
