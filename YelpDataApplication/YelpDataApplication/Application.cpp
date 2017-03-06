@@ -202,9 +202,12 @@ std::vector<std::string> getReviewAttributes() {
 }
 
 Table addBusinessRecords(std::vector<struct business> businesses) {
-	Table businessTable = Table(getBusinessAttributes());
+
+	std::vector<std::string> businessAttributes = getBusinessAttributes();
+	Table businessTable = Table(businessAttributes);
+
 	for (unsigned int i = 0; i < businesses.size(); i++) {
-		Record record = Record(getBusinessAttributes().size());
+		Record record = Record(businessAttributes.size());
 		record[0] = businesses[i].businessId;
 		record[1] = businesses[i].name;
 		record[2] = businesses[i].neighborhood;
@@ -229,7 +232,7 @@ Table addBusinessRecords(std::vector<struct business> businesses) {
 		std::vector<std::string> categories = businesses[i].categories;
 		std::string totalCategories;
 		for (unsigned int j = 0; j < categories.size(); j++) {
-			totalCategories += categories[i] + ", ";
+			totalCategories += categories[j] + ", ";
 		}
 		if (totalCategories != "") {
 			totalCategories = totalCategories.substr(0, totalCategories.length() - 2);
@@ -238,7 +241,7 @@ Table addBusinessRecords(std::vector<struct business> businesses) {
 		std::vector<std::string> hours = businesses[i].hours;
 		std::string totalHours;
 		for (unsigned int j = 0; j < hours.size(); j++) {
-			totalHours += hours[i] + ", ";
+			totalHours += hours[j] + ", ";
 		}
 		if (totalHours != "") {
 			totalHours = totalHours.substr(0, totalHours.length() - 2);
@@ -261,7 +264,7 @@ Table addUserRecords(std::vector<struct user> users) {
 		std::vector<std::string> friends = users[i].friends;
 		std::string totalFriends;
 		for (unsigned int j = 0; j < friends.size(); j++) {
-			totalFriends += friends[i] + ", ";
+			totalFriends += friends[j] + ", ";
 		}
 		if (totalFriends != "") {
 			totalFriends = totalFriends.substr(0, totalFriends.length() - 2);
@@ -274,7 +277,7 @@ Table addUserRecords(std::vector<struct user> users) {
 		std::vector<std::string> elite = users[i].elite;
 		std::string totalElite;
 		for (unsigned int j = 0; j < elite.size(); j++) {
-			totalElite += elite[i] + ", ";
+			totalElite += elite[j] + ", ";
 		}
 		if (totalElite != "") {
 			totalElite = totalElite.substr(0, totalElite.length() - 2);
@@ -379,18 +382,22 @@ int main() {
 	std::vector<struct user> users = loadUserData(userJSONFilename);
 	std::vector<struct review> reviews = loadReviewData(reviewJSONFilename);
 
+	Database db = Database();
+
+	Table businessTable = addBusinessRecords(businesses);
+	Table userTable = addUserRecords(users);
+	Table reviewTable = addReviewRecords(reviews);
+	//db.addTable("Business", businessTable);
+	//db.addTable("User", userTable);
+	//db.addTable("Review", reviewTable);
+
 	/*std::vector<struct business> businesses = parseBusiness();
 	std::vector<struct user> users = parseUser();
 	std::vector<struct review> reviews = parseReview();
 	Database db = Database();
 
 
-	Table businessTable = addBusinessRecords(businesses);
-	Table userTable = addUserRecords(users);
-	Table reviewTable = addReviewRecords(reviews);
-	db.addTable("Business", businessTable);
-	db.addTable("User", userTable);
-	db.addTable("Review", reviewTable);
+	
 	
 	std::string choice;
 	std::cout << "Welcome to the Yelp Database Application!" << std::endl;
