@@ -351,11 +351,9 @@ int main() {
 	std::cout << "DB: Display Business Information" << std::endl;
 	std::cout << "C: Combine Information from Two Tables" << std::endl;
 	std::cout << "DR: Display all Businesses with a Certain Rating" << std::endl;
+	std::cout << "DSBR: Display Summary for Business Ratings" << std::endl;
 	std::cin.clear();
 	std::cin >> choice;
-	std::cin.clear();
-	std::cin.ignore();
-	std::cout << "???\n";
 	if (choice == "DU") {
 		std::cout << "What is User ID of the User?" << std::endl;
 		std::string userId;
@@ -402,6 +400,33 @@ int main() {
 			}
 
 			std::cout << std::endl;
+		}
+	}
+	else if (choice == "DSBR") {
+		std::cout << "Enter a business name: "; 
+		std::string str;
+		std::getline(std::cin, str);
+		//Table businessName = db.Querry("BusinessID", "Business", "Name = " + str);
+
+		Table businessName = db.Querry("BusinessID", "Business", "BusinessID = 2aFiy99vNLklCx3T_tGS9A");
+
+		if (businessName.getTableSize() > 0) {
+			Record rd = businessName.tableRecord[0];
+
+			//std::string businessID = rd[0];
+			std::string businessID = "2aFiy99vNLklCx3T_tGS9A";
+
+			Table reviewsForIDOnly = db.Querry("BusinessID, Stars, Date", "Review", "BusinessID = 2LfIuF3_sX6uwe-IR-P0jQ");
+			std::cout << reviewsForIDOnly.tableRecord.size() << std::endl;
+			std::tuple<std::string, std::string, std::string> t = reviewsForIDOnly.findRoutine("Stars");
+
+			std::cout << "Restaurant: " << str << std::endl;
+			std::cout << "Number of Ratings: " << std::get<0>(t) << std::endl;
+			std::cout << "Lowest Rating: " << std::get<1>(t) << std::endl;
+			std::cout << "Maximum Rating: " << std::get<2>(t) << std::endl;
+		}
+		else {
+			std::cout << "Unable to find a business with that name." << std::endl;
 		}
 	}
 	else {
