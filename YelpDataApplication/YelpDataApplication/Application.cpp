@@ -346,6 +346,12 @@ int main() {
 	db.addTable("User", userTable);
 	db.addTable("Review", reviewTable);
 
+	Table test = db.Querry("*", "Business", "City = Fellbach");
+	std::cout << test.getTableSize() << std::endl;
+
+	/*for (int i = 0; i < test.tableRecord.size(); i++) {
+	
+	}*/
 	
 
 	/*std::vector<struct business> businesses = parseBusiness();
