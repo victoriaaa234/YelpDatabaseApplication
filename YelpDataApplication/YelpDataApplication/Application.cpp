@@ -72,20 +72,24 @@ struct user {
 
 using json = nlohmann::json;
 
-std::vector<struct business> parseBusiness() {
+std::vector<struct business> loadBusinessData(std::string fileName) {
 	std::string line;
 	std::vector<struct business> allBusiness;
-	std::ifstream myfileBusiness("business.json");
+	std::ifstream myfileBusiness(fileName);
 	if (myfileBusiness.is_open()) {
 		while (getline(myfileBusiness, line)) {
-			// Normalizing Hours to Ensure no Null values for the parser.
+			/* Normalizing the data for hours. The JSON parser we are using now does not accept the null keyword.
+			** Solved by manually searching for the "hours":null and changing to "hours":["null"]. We are ensuring that
+			** in the end the database matches.
+			*/
 			std::size_t found = line.find("\"hours\":null");
 			if (found != std::string::npos) {
-				std::cout << found << std::endl;
 				line.insert(found + 8, "[\"");
 				line.insert(found + 14, "\"]");
 			}
+
 			auto business = json::parse(line);
+
 			struct business businessstruct;
 			businessstruct.businessId = business["business_id"];
 			businessstruct.name = business["name"];
@@ -99,6 +103,7 @@ std::vector<struct business> parseBusiness() {
 			businessstruct.stars = business["stars"];
 			businessstruct.reviewCount = business["review_count"];
 			businessstruct.isOpen = business["is_open"];
+			// There is an issue with the json internal mapping to a map. Must analyze and implement later.
 			//businessstruct.attributes = business["attributes"]; @TODO Implement this later.
 			businessstruct.categories = business["categories"];
 			businessstruct.hours = business["hours"];
@@ -111,10 +116,10 @@ std::vector<struct business> parseBusiness() {
 	return allBusiness;
 }
 
-std::vector<struct user> parseUser() {
+std::vector<struct user> loadUserData(std::string fileName) {
 	std::string line;
 	std::vector<struct user> allUser;
-	std::ifstream myfileUser("user.json");
+	std::ifstream myfileUser(fileName);
 	if (myfileUser.is_open()) {
 		while (getline(myfileUser, line)) {
 			auto user = json::parse(line);
@@ -146,18 +151,13 @@ std::vector<struct user> parseUser() {
 		}
 		myfileUser.close();
 	}
-	std::cout << allUser.size() << std::endl;
-
-	for (unsigned int i = 0; i < allUser.size(); i++) {
-		std::cout << allUser[i].userId << std::endl;
-	}
 	return allUser;
 }
 
-std::vector<struct review> parseReview() {
+std::vector<struct review> loadReviewData(std::string fileName) {
 	std::string line;
 	std::vector<struct review> allReview;
-	std::ifstream myfileReview("review.json");
+	std::ifstream myfileReview(fileName);
 	if (myfileReview.is_open()) {
 		while (getline(myfileReview, line)) {
 			auto review = json::parse(line);
@@ -175,11 +175,6 @@ std::vector<struct review> parseReview() {
 			allReview.push_back(reviewStruct);
 		}
 		myfileReview.close();
-	}
-	std::cout << allReview.size() << std::endl;
-
-	for (unsigned int i = 0; i < allReview.size(); i++) {
-		std::cout << allReview[i].reviewId << std::endl;
 	}
 	return allReview;
 }
@@ -376,8 +371,13 @@ void displayUserInfo(std::string userId, std::vector<struct user> users) {
 
 int main() {
 
-	std::vector<struct business> businesses = parseBusiness();
+	std::string businessJSONFilename = "business.json";
+	std::string userJSONFilename = "user.json";
+	std::string reviewJSONFilename = "review.json";
 
+	std::vector<struct business> businesses = loadBusinessData(businessJSONFilename);
+	std::vector<struct user> users = loadUserData(userJSONFilename);
+	std::vector<struct review> reviews = loadReviewData(reviewJSONFilename);
 
 	/*std::vector<struct business> businesses = parseBusiness();
 	std::vector<struct user> users = parseUser();
