@@ -180,23 +180,23 @@ std::vector<struct review> loadReviewData(std::string fileName) {
 }
 
 std::vector<std::string> getBusinessAttributes() {
-	std::vector<std::string> businessAttributes = { "Business ID", "Name", "Neighborhood",
-		"Address", "City", "State", "Postal Code", "Latitude", "Longitude", "Stars", "Review Count",
-		"Is Open", "Attributes", "Categories", "Hours", "Type" };
+	std::vector<std::string> businessAttributes = { "BusinessID", "Name", "Neighborhood",
+		"Address", "City", "State", "PostalCode", "Latitude", "Longitude", "Stars", "ReviewCount",
+		"IsOpen", "Attributes", "Categories", "Hours", "Type" };
 	return businessAttributes;
 }
 
 std::vector<std::string> getUserAttributes() {
-	std::vector<std::string> userAttributes = { "User ID", "Name", "Review Count", "Yelping Since",
-		"Friends", "Useful", "Funny", "Cool", "Fans", "Elite", "Average Stars", "Compliment Hot",
-		"Compliment More", "Compliment Profile", "Compliment Cute", "Compliment List", "Compliment Note",
-		"Compliment Plain", "Compliment Cool", "Compliment Funny", "Compliment Writer", "Compliment Photos",
+	std::vector<std::string> userAttributes = { "UserID", "Name", "ReviewCount", "YelpingSince",
+		"Friends", "Useful", "Funny", "Cool", "Fans", "Elite", "AverageStars", "ComplimentHot",
+		"ComplimentMore", "ComplimentProfile", "ComplimentCute", "ComplimentList", "ComplimentNote",
+		"ComplimentPlain", "ComplimentCool", "ComplimentFunny", "ComplimentWriter", "ComplimentPhotos",
 		"Type" };
 	return userAttributes;
 }
 
 std::vector<std::string> getReviewAttributes() {
-	std::vector<std::string> reviewAttributes = { "Review ID", "User ID", "Business ID", "Stars",
+	std::vector<std::string> reviewAttributes = { "ReviewID", "UserID", "BusinessID", "Stars",
 		"Date", "Text", "Useful", "Funny", "Cool", "Type" };
 	return reviewAttributes;
 }
@@ -298,7 +298,6 @@ Table addUserRecords(std::vector<struct user> users) {
 		record[22] = users[i].type;
 		userTable.insertRecord(record);
 	}
-	userTable.specifyKey("User ID");
 	return userTable;
 }
 
@@ -319,10 +318,6 @@ Table addReviewRecords(std::vector<struct review> reviews) {
 		reviewTable.insertRecord(record);
 	}
 	return reviewTable;
-}
-
-void displayUserInfo(std::string userId, Table userTable) {
-	
 }
 
 int main() {
@@ -346,16 +341,6 @@ int main() {
 	db.addTable("User", userTable);
 	db.addTable("Review", reviewTable);
 
-	
-
-	/*std::vector<struct business> businesses = parseBusiness();
-	std::vector<struct user> users = parseUser();
-	std::vector<struct review> reviews = parseReview();
-	Database db = Database();
-	db.addTable("Business", businessTable);
-	db.addTable("User", userTable);
-	db.addTable("Review", reviewTable);
-
 	std::string choice;
 	std::cout << "Welcome to the Yelp Database Application!" << std::endl;
 	std::cout << "What would you like to do?" << std::endl;
@@ -367,7 +352,12 @@ int main() {
 		std::cout << "What is User ID of the User?" << std::endl;
 		std::string userId;
 		std::cin >> userId;
-		displayUserInfo(userId, userTable);
+		//KpkOkG6RIf4Ra25Lhhxf1A
+		std::vector<std::string> attributes;
+		Table table = db.Querry("UserID", "User", "UserID = " + userId);
+		for (int i = 0; i < table.tableRecord.size(); i++) {
+
+		}
 	}
 	else if (choice == "DB") {
 
@@ -377,7 +367,7 @@ int main() {
 	}
 	else {
 
-	}*/
+	}
 	return 0;
 }
 
