@@ -24,9 +24,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\New Folder\checkPoint3_Team17\database.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\New Folder\checkPoint3_Team17\record.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -34,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

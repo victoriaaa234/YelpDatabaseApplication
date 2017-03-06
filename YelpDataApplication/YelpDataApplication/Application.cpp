@@ -9,6 +9,8 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <typeinfo>
+#include <map>
 
 struct business {
 	std::string businessId;
@@ -23,7 +25,7 @@ struct business {
 	double stars;
 	double reviewCount;
 	int isOpen;
-	std::vector<std::string> attributes;
+	std::map < std::string, std::string > attributes;
 	std::vector<std::string> categories;
 	std::vector<std::string> hours;
 	std::string type;
@@ -76,30 +78,32 @@ std::vector<struct business> parseBusiness() {
 	std::ifstream myfileBusiness("business.json");
 	if (myfileBusiness.is_open()) {
 		while (getline(myfileBusiness, line)) {
+			// Normalizing Hours to Ensure no Null values for the parser.
+			std::size_t found = line.find("\"hours\":null");
+			if (found != std::string::npos) {
+				std::cout << found << std::endl;
+				line.insert(found + 8, "[\"");
+				line.insert(found + 14, "\"]");
+			}
 			auto business = json::parse(line);
-			struct business businessStruct;
-			businessStruct.businessId = business["business_id"];
-			businessStruct.name = business["name"];
-			businessStruct.neighborhood = business["neighborhood"];
-			businessStruct.address = business["address"];
-			businessStruct.city = business["city"];
-			businessStruct.state = business["state"];
-			businessStruct.postalCode = business["postal_code"];
-			businessStruct.latitude = business["latitude"];
-			businessStruct.longitude = business["longitude"];
-			businessStruct.stars = business["stars"];
-			businessStruct.reviewCount = business["review_count"];
-			businessStruct.isOpen = business["is_open"];
-			businessStruct.attributes = business["attributes"];
-			businessStruct.categories = business["categories"];
-			businessStruct.hours = business["hours"];
-			businessStruct.type = business["type"];
-			allBusiness.push_back(businessStruct);
-		}
-		std::cout << allBusiness.size() << std::endl;
-
-		for (unsigned int i = 0; i < allBusiness.size(); i++) {
-			std::cout << allBusiness[i].businessId<< std::endl;
+			struct business businessstruct;
+			businessstruct.businessId = business["business_id"];
+			businessstruct.name = business["name"];
+			businessstruct.neighborhood = business["neighborhood"];
+			businessstruct.address = business["address"];
+			businessstruct.city = business["city"];
+			businessstruct.state = business["state"];
+			businessstruct.postalCode = business["postal_code"];
+			businessstruct.latitude = business["latitude"];
+			businessstruct.longitude = business["longitude"];
+			businessstruct.stars = business["stars"];
+			businessstruct.reviewCount = business["review_count"];
+			businessstruct.isOpen = business["is_open"];
+			//businessstruct.attributes = business["attributes"]; @TODO Implement this later.
+			businessstruct.categories = business["categories"];
+			businessstruct.hours = business["hours"];
+			businessstruct.type = business["type"];
+			allBusiness.push_back(businessstruct);
 		}
 
 		myfileBusiness.close();
@@ -218,11 +222,11 @@ Table addBusinessRecords(std::vector<struct business> businesses) {
 		record[9] = std::to_string(businesses[i].stars);
 		record[10] = std::to_string(businesses[i].reviewCount);
 		record[11] = std::to_string(businesses[i].isOpen);
-		std::vector<std::string> attributes = businesses[i].attributes;
+		//std::vector<std::string> attributes = businesses[i].attributes;
 		std::string totalAttributes;
-		for (unsigned int j = 0; j < attributes.size(); j++) {
-			totalAttributes += attributes[i] + ", ";
-		}
+		//for (unsigned int j = 0; j < attributes.size(); j++) {
+		//	totalAttributes += attributes[i] + ", ";
+		//}
 		if (totalAttributes != "") {
 			totalAttributes = totalAttributes.substr(0, totalAttributes.length() - 2);
 		}
@@ -371,10 +375,17 @@ void displayUserInfo(std::string userId, std::vector<struct user> users) {
 }
 
 int main() {
+
 	std::vector<struct business> businesses = parseBusiness();
+
+
+
+	/*std::vector<struct business> businesses = parseBusiness();
 	std::vector<struct user> users = parseUser();
 	std::vector<struct review> reviews = parseReview();
 	Database db = Database();
+
+
 	Table businessTable = addBusinessRecords(businesses);
 	Table userTable = addUserRecords(users);
 	Table reviewTable = addReviewRecords(reviews);
@@ -403,7 +414,7 @@ int main() {
 	}
 	else {
 
-	}
+	}*/
 	return 0;
 }
 
