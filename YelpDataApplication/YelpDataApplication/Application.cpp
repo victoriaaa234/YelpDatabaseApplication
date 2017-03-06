@@ -321,55 +321,8 @@ Table addReviewRecords(std::vector<struct review> reviews) {
 	return reviewTable;
 }
 
-/*Team that gave us database implemented iterators wrong. Therefore, we are unable to use
-the iterators from their database to traverse the records of a specific table.*/
-
-void displayUserInfo(std::string userId, std::vector<struct user> users) {
-	int location = -1;
-	for (unsigned int i = 0; i < users.size(); i++) {
-		if (users[i].userId == userId) {
-			location = i;
-			std::cout << "Found User!" << std::endl;
-			std::cout << "Name: " << users[i].name << std::endl;
-			std::cout << "Review Count: " << users[i].reviewCount << std::endl;
-			std::cout << "Yelping Since: " << users[i].yelpingSince << std::endl;
-			std::cout << "Friends: ";
-			std::string friends;
-			for (unsigned int j = 0; j < users[i].friends.size(); j++) {
-				friends += users[i].friends[j] + ", ";
-			}
-			friends = friends.substr(0, friends.length() - 2);
-			std::cout << friends << std::endl;
-			std::cout << "Useful: " << users[i].useful << std::endl;
-			std::cout << "Funny: " << users[i].funny << std::endl;
-			std::cout << "Cool: " << users[i].cool << std::endl;
-			std::cout << "Fans: " << users[i].fans << std::endl;
-			std::cout << "Elite: ";
-			std::string elite;
-			for (unsigned int j = 0; j < users[i].elite.size(); j++) {
-				elite += users[i].elite[j] + ", ";
-			}
-			elite = elite.substr(0, elite.length() - 2);
-			std::cout << elite << std::endl;
-			std::cout << "Average Stars: " << users[i].avgStars << std::endl;
-			std::cout << "Compliment Hot: " << users[i].complimentHot << std::endl;
-			std::cout << "Compliment More: " << users[i].complimentMore << std::endl;
-			std::cout << "Compliment Profile: " << users[i].complimentProfile << std::endl;
-			std::cout << "Compliment Cute: " << users[i].complimentCute << std::endl;
-			std::cout << "Compliment List: " << users[i].complimentList << std::endl;
-			std::cout << "Compliment Note: " << users[i].complimentNote << std::endl;
-			std::cout << "Compliment Plain: " << users[i].complimentPlain << std::endl;
-			std::cout << "Compliment Cool: " << users[i].complimentCool << std::endl;
-			std::cout << "Compliment Funny: " << users[i].complimentFunny<< std::endl;
-			std::cout << "Compliment Writer: " << users[i].complimentWriter << std::endl;
-			std::cout << "Compliment Photos: " << users[i].complimentPhotos << std::endl;
-			std::cout << "Type: " << users[i].type << std::endl;
-			break;
-		}
-	}
-	if (location == -1) {
-		std::cout << "Couldn't find User!" << std::endl;
-	}
+void displayUserInfo(std::string userId, Table userTable) {
+	
 }
 
 int main() {
@@ -399,10 +352,10 @@ int main() {
 	std::vector<struct user> users = parseUser();
 	std::vector<struct review> reviews = parseReview();
 	Database db = Database();
+	db.addTable("Business", businessTable);
+	db.addTable("User", userTable);
+	db.addTable("Review", reviewTable);
 
-
-	
-	
 	std::string choice;
 	std::cout << "Welcome to the Yelp Database Application!" << std::endl;
 	std::cout << "What would you like to do?" << std::endl;
@@ -414,7 +367,7 @@ int main() {
 		std::cout << "What is User ID of the User?" << std::endl;
 		std::string userId;
 		std::cin >> userId;
-		displayUserInfo(userId, users);
+		displayUserInfo(userId, userTable);
 	}
 	else if (choice == "DB") {
 

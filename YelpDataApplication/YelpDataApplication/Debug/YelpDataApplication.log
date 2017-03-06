@@ -1,3 +1,4 @@
 ﻿  Application.cpp
+stdafx.obj : warning LNK4020: a type record in 'c:\users\kevin j nguyen\desktop\csce-315-database-project\yelpdataapplication\yelpdataapplication\debug\vc140.pdb' is corrupted; some symbols and types may not be accessible from the debugger
   YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
   YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)
