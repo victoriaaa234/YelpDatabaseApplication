@@ -379,7 +379,6 @@ int main() {
 	std::vector<struct business> businesses = parseBusiness();
 
 
-
 	/*std::vector<struct business> businesses = parseBusiness();
 	std::vector<struct user> users = parseUser();
 	std::vector<struct review> reviews = parseReview();
