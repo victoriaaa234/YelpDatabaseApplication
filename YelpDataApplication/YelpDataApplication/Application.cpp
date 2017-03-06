@@ -387,9 +387,13 @@ int main() {
 	Table businessTable = addBusinessRecords(businesses);
 	Table userTable = addUserRecords(users);
 	Table reviewTable = addReviewRecords(reviews);
-	//db.addTable("Business", businessTable);
-	//db.addTable("User", userTable);
-	//db.addTable("Review", reviewTable);
+
+
+	db.addTable("Business", businessTable);
+	db.addTable("User", userTable);
+	db.addTable("Review", reviewTable);
+
+	
 
 	/*std::vector<struct business> businesses = parseBusiness();
 	std::vector<struct user> users = parseUser();

@@ -149,8 +149,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\New Folder\checkPoint3_Team17\record.h" />
-    <ClInclude Include="..\..\..\..\New Folder\checkPoint3_Team17\table.h" />
+    <ClInclude Include="record.h" />
+    <ClInclude Include="table.h" />
     <ClInclude Include="database.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="stdafx.h" />
