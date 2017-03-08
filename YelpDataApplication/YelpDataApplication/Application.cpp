@@ -582,6 +582,8 @@ int main() {
 	std::cout << "RRL: Display Businesses Above a Certain Ranking" << std::endl;
 	std::cout << "BS: Display Businesses by State" << std::endl;
 	std::cout << "BC: Display Businesses by City" << std::endl;
+	std::cout << "MF: Get user with maximum friends." << std::endl;
+	std::cout << "MR: Get length of the longest review." << std::endl;
 
 	std::cin.clear();
 	std::cin >> choice;
@@ -673,23 +675,23 @@ int main() {
 	}
 	else if (choice == "DSUR") {
 		std::cout << "Get all reviews by reviewer name: ";
-std::string username;
-std::getline(std::cin, username);
+		std::string username;
+		std::getline(std::cin, username);
 
-std::vector<Table> allTables = db.getTables();
-Table usernames = allTables[1];
-usernames.specifyKey("UserID");
-Table reviews = allTables[2];
-Table tb = naturalJoin(reviews, usernames);
+		std::vector<Table> allTables = db.getTables();
+		Table usernames = allTables[1];
+		usernames.specifyKey("UserID");
+		Table reviews = allTables[2];
+		Table tb = naturalJoin(reviews, usernames);
 
-for (Record rd : tb.tableRecord) {
-	if (rd[1] == username) {
-		std::cout << "Name: " << rd[1] << std::endl;
-		std::cout << "Review Count: " << rd[2] << std::endl;
-		std::cout << "Text: " << rd[27] << std::endl;
-		std::cout << std::endl;
-	}
-}
+		for (Record rd : tb.tableRecord) {
+			if (rd[1] == username) {
+				std::cout << "Name: " << rd[1] << std::endl;
+				std::cout << "Review Count: " << rd[2] << std::endl;
+				std::cout << "Text: " << rd[27] << std::endl;
+				std::cout << std::endl;
+			}
+		}
 	}
 	else if (choice == "DSBR") {
 		std::cout << "Enter a business name: ";
@@ -779,6 +781,33 @@ for (Record rd : tb.tableRecord) {
 				std::cout << std::endl;
 			}
 		}
+	}
+	else if (choice == "MF") {
+		Table users = db.getTables()[2];
+
+		int numberOfFriends = 0;
+		std::string username;
+		for (Record rd : users.tableRecord) {
+			std::string friendsList = rd[4];
+			size_t n = std::count(friendsList.begin(), friendsList.end(), ',');
+			if (n > numberOfFriends) {
+				username = rd[1];
+				numberOfFriends = n;
+			}
+		}
+		std::cout << "Username: " << username << " has the most friends! With " << numberOfFriends << " number of friends!" << std::endl;
+	}
+	else if (choice == "MR") {
+		Table users = db.getTables()[1];
+
+		int lengthOfReview = 0;
+		for (Record rd : users.tableRecord) {
+			std::string review = rd[5];
+			if (review.length() > lengthOfReview) {
+				lengthOfReview = review.length();
+			}
+		}
+		std::cout << "The longest review has " << lengthOfReview << " characters." << std::endl;
 	}
 	else {
 
