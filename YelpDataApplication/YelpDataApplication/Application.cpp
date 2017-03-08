@@ -645,21 +645,24 @@ int main() {
 			break;
 		case 2:
 			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 2.000000");
+			break;
 		case 3:
 			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 3.000000");
+			break;
 		case 4:
 			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 4.000000");
+			break;
 		case 5:
 			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 5.000000");
+			break;
 		}
 
 		for (unsigned int i = 0; i < query.tableRecord.size(); i++) {
 			Record rd = query.tableRecord[i];
-
-			for (int j = 0; j < rd.getRecordSize(); j++) {
-				std::cout << rd[j] << " | ";
-			}
-
+			std::cout << "Name: " << rd[0] << std::endl;
+			std::cout << "City: " << rd[1] << std::endl;
+			std::cout << "State: " << rd[2] << std::endl;
+			std::cout << "Hours: " << rd[3] << std::endl;
 			std::cout << std::endl;
 		}
 	}
@@ -672,13 +675,14 @@ int main() {
 		Table usernames = allTables[1];
 		usernames.specifyKey("UserID");
 		Table reviews = allTables[2];
-
-		//Table desiredUsernames(usernames.getAttributeNames());
 		Table tb = naturalJoin(reviews, usernames);
 
 		for (Record rd : tb.tableRecord) {
 			if (rd[1] == username) {
-				std::cout << "Name: " << rd[1] << " - Review Count: " << rd[2] << " - Text: " << rd[27] << std::endl;
+				std::cout << "Name: " << rd[1] << std::endl;
+				std::cout << "Review Count: " << rd[2] << std::endl;
+				std::cout << "Text: " << rd[27] << std::endl;
+				std::cout << std::endl;
 			}
 		}
 	}
@@ -714,6 +718,7 @@ int main() {
 			std::cout << "Number of Ratings: " << std::get<0>(t) << std::endl;
 			std::cout << "Lowest Rating: " << std::get<2>(t) << std::endl;
 			std::cout << "Maximum Rating: " << std::get<1>(t) << std::endl;
+			std::cout << std::endl;
 		}
 		else if (choice == "DSUR") {
 			std::cout << "Enter a user ID: ";
@@ -754,9 +759,7 @@ int main() {
 	//} while (again == "Y");
 	
 	// Display business with range of ratings from x to x.
-	// Summary of reviews and compliments for a user.
 	// Summary information about reviews/users for a business.
-	// Table for 5 star/4/3/2/1
 	// Favorite business from a user
 	// Display user with the most number of reviews
 	// Display user with the minimum number of reviews
