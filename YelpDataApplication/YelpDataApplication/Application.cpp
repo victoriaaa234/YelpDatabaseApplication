@@ -578,6 +578,9 @@ int main() {
 	std::cout << "DR: Display all Businesses with a Certain Rating" << std::endl;
 	std::cout << "DSBR: Display Summary for Business Ratings" << std::endl;
 	std::cout << "DSUR: Display Reviews by Name" << std::endl;
+	std::cout << "RRU: Display Businesses Below a Certain Ranking" << std::endl;
+	std::cout << "RRL: Display Businesses Above a Certain Ranking" << std::endl;
+
 	std::cin.clear();
 	std::cin >> choice;
 	std::cin.ignore(100, '\n');
@@ -715,35 +718,38 @@ int main() {
 			std::cout << "Lowest Rating: " << std::get<2>(t) << std::endl;
 			std::cout << "Maximum Rating: " << std::get<1>(t) << std::endl;
 		}
-		else if (choice == "DSUR") {
-			std::cout << "Enter a user ID: ";
-			std::string str;
-			std::getline(std::cin, str);
-			Table userName = db.Querry("*", "User", "UserID = KpkOkG6RIf4Ra25Lhhxf1A");
-
-			if (userName.getTableSize() > 0) {
-				Record rd = userName.tableRecord[0];
-
-				//std::string businessID = rd[0];
-				std::string userID = "KpkOkG6RIf4Ra25Lhhxf1A";
-
-				Table reviewsForIDOnly = db.Querry("BusinessID, Stars, Date", "Review", "BusinessID = 2LfIuF3_sX6uwe-IR-P0jQ");
-				std::cout << reviewsForIDOnly.tableRecord.size() << std::endl;
-				std::tuple<std::string, std::string, std::string> t = reviewsForIDOnly.findRoutine("Stars");
-
-				std::cout << "Restaurant: " << str << std::endl;
-				std::cout << "Number of Ratings: " << std::get<0>(t) << std::endl;
-				std::cout << "Lowest Rating: " << std::get<1>(t) << std::endl;
-				std::cout << "Maximum Rating: " << std::get<2>(t) << std::endl;
-			}
-			else {
-				std::cout << "Unable to find a business with that name." << std::endl;
-			}
-		}
-		else {
-
-		}
 	}
+	else if (choice == "RRU") {
+		double upperBound = 0.00;
+		std::cout << "Upper bound: ";
+		std::cin >> upperBound;
+		if (upperBound < 0.00 || upperBound > 5.00) {
+			std::cout << "Invalid.";
+			return 1;
+		}
+	
+		std::cout << "Searching for stars: 0.00 to " << upperBound << "." << std::endl;
+
+		Table tb = db.Querry("*", "Business", "Stars <= " + std::to_string(upperBound));
+		std::cout << tb.tableRecord.size() << std::endl;
+	}
+	else if (choice == "RRL") {
+		double lowerBound = 0.00;
+		std::cout << "Lower bound: ";
+		std::cin >> lowerBound;
+		if (lowerBound < 0.00 || lowerBound > 5.00) {
+			std::cout << "Invalid.";
+			return 1;
+		}
+		std::cout << "Searching for stars: " << lowerBound << " to  5.0 " << std::endl;
+
+		Table tb = db.Querry("*", "Business", "Stars >= " + std::to_string(lowerBound));
+		std::cout << tb.tableRecord.size() << std::endl;
+	}
+	else {
+
+	}
+	
 		/*std::cin.clear();
 		std::cin.ignore(100, '\n');
 		std::cout << "Again?";
