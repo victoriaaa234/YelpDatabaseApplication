@@ -568,8 +568,6 @@ int main() {
 	std::cout << "Welcome to the Yelp Database Application!" << std::endl;
 
 	std::string again = "y";
-	//while (again == "y") {
-
 	std::string choice;
 	std::cout << "What would you like to do?" << std::endl;
 	std::cout << "DU: Display User Information" << std::endl;
@@ -580,10 +578,13 @@ int main() {
 	std::cout << "DSUR: Display Reviews by Name" << std::endl;
 	std::cout << "RRU: Display Businesses Below a Certain Ranking" << std::endl;
 	std::cout << "RRL: Display Businesses Above a Certain Ranking" << std::endl;
-
+	std::cout << "COOL: Display coolest users" << std::endl;
+	std::cout << "OLD: Display oldest user on Yelp" << std::endl;
+	std::cout << "LR: Longest review from a user" << std::endl;
 	std::cin.clear();
 	std::cin >> choice;
 	std::cin.ignore(100, '\n');
+
 	if (choice == "DU") {
 		std::cout << "What is User ID of the User?" << std::endl;
 		std::string userId;
@@ -732,9 +733,8 @@ int main() {
 			std::cout << "Invalid.";
 			return 1;
 		}
-	
-		std::cout << "Searching for stars: 0.00 to " << upperBound << "." << std::endl;
 
+		std::cout << "Searching for stars: 0.00 to " << upperBound << "." << std::endl;
 		Table tb = db.Querry("*", "Business", "Stars <= " + std::to_string(upperBound));
 		std::cout << tb.tableRecord.size() << std::endl;
 	}
@@ -751,30 +751,53 @@ int main() {
 		Table tb = db.Querry("*", "Business", "Stars >= " + std::to_string(lowerBound));
 		std::cout << tb.tableRecord.size() << std::endl;
 	}
-	else {
+	else if (choice == "COOL") {
+		std::tuple<std::string, std::string, std::string> t = userTable.findRoutine("Cool");
+		std::cout << "Coolest Rating: " << std::get<1>(t) << std::endl;
+		Table tb = db.Querry("*", "User", "Cool = " + std::get<1>(t));
 
+		for (Record rd : tb.tableRecord) {
+			std::cout << "Name: " << rd[1] << std::endl;
+			std::cout << "Review Count: " << rd[2] << std::endl;
+			std::cout << "Yelping Since: " << rd[3] << std::endl;
+			std::cout << std::endl;
+		}
 	}
-	
-		/*std::cin.clear();
-		std::cin.ignore(100, '\n');
-		std::cout << "Again?";
-		std::cin >> again;*/
-	//}
-		//std::cout << "Again? " << std::endl;
-		//std::cin >> again;
-	//} while (again == "Y");
-	
-	// Display business with range of ratings from x to x.
-	// Summary information about reviews/users for a business.
-	// Favorite business from a user
-	// Display user with the most number of reviews
-	// Display user with the minimum number of reviews
-	// Coolest user
-	// Oldest user
-	// business search by state
-	// business search by city
-	// User with the most number of friends.
-	// Longest review from a user
+	else if (choice == "OLD") {
+		std::tuple<std::string, std::string, std::string> t = userTable.findRoutine("YelpingSince");
+		std::cout << "Oldest User: " << std::get<2>(t) << std::endl;
+		Table tb = db.Querry("*", "User", "YelpingSince = " + std::get<2>(t));
 
+		for (Record rd : tb.tableRecord) {
+			std::cout << "Name: " << rd[1] << std::endl;
+			std::cout << "Review Count: " << rd[2] << std::endl;
+			std::cout << std::endl;
+		}
+	}
+	else if (choice == "LR") {
+		//Test string: KpkOkG6RIf4Ra25Lhhxf1A
+		std::cout << "What is User ID of the User?" << std::endl;
+		std::string userId = "KpkOkG6RIf4Ra25Lhhxf1A";
+		std::cin >> userId;
+		Table userReviewTable;
+		userReviewTable = crossJoin(userTable, reviewTable);
+		db.addTable("UserReview", userReviewTable);
+		Table userIDTable = db.Querry("*", "UserReview", "1UserID = " + userId);
+		db.addTable("UserIDTable", userIDTable);
+		Table finalTable = db.Querry("*", "UserIDTable", "2UserID = " + userId);
+		unsigned int maximum = 0;
+		std::string maximumString = "";
+		for (Record rd : finalTable.tableRecord) {
+			if (rd[28].length() > maximum) {
+				maximum = rd[28].length();
+				maximumString = rd[28];
+			}
+		}
+		std::cout << "The longest review for this user is: " << maximum << " characters." << std::endl;
+		std::cout << "The review: " << maximumString << std::endl;
+	}
+	else {
+		std::cout << "Wrong code!" << std::endl;
+	}
 	return 0;
 }
