@@ -1,5 +1,3 @@
 ﻿  Application.cpp
-c:\users\kevin j nguyen\desktop\csce-315-database-project\yelpdataapplication\yelpdataapplication\application.cpp(365): warning C4018: '<': signed/unsigned mismatch
-c:\users\kevin j nguyen\desktop\csce-315-database-project\yelpdataapplication\yelpdataapplication\application.cpp(395): warning C4018: '<': signed/unsigned mismatch
-  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
-  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)
+  YelpDataApplication.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
+  YelpDataApplication.vcxproj -> C:\Users\Victoria\Desktop\CSCE315\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)

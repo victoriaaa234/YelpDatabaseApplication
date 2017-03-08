@@ -317,7 +317,6 @@ Table addReviewRecords(std::vector<struct review> reviews) {
 		record[9] = reviews[i].type;
 		reviewTable.insertRecord(record);
 	}
-	reviewTable.specifyKey("BusinessID");
 	return reviewTable;
 }
 
@@ -372,30 +371,33 @@ void displayBusinessInfo(Table table) {
 
 void showBusinessReviews(Table table) {
 	for (unsigned int i = 0; i < table.tableRecord.size(); i++) {
-		std::cout << "Review ID: " << table.tableRecord[i][15] << std::endl;
-		std::cout << "User ID: " << table.tableRecord[i][16] << std::endl;
+		std::cout << "Review ID: " << table.tableRecord[i][16] << std::endl;
+		std::cout << "User ID: " << table.tableRecord[i][17] << std::endl;
 		std::cout << "Business ID: " << table.tableRecord[i][0] << std::endl;
-		std::cout << "Stars: " << table.tableRecord[i][18] << std::endl;
-		std::cout << "Date: " << table.tableRecord[i][19] << std::endl;
-		std::cout << "Text: " << table.tableRecord[i][20] << std::endl;
-		std::cout << "Useful: " << table.tableRecord[i][21] << std::endl;
-		std::cout << "Funny: " << table.tableRecord[i][22] << std::endl;
-		std::cout << "Cool: " << table.tableRecord[i][23] << std::endl;
-		std::cout << "Type: " << table.tableRecord[i][24] << std::endl;
+		std::cout << "Stars: " << table.tableRecord[i][19] << std::endl;
+		std::cout << "Date: " << table.tableRecord[i][20] << std::endl;
+		std::cout << "Text: " << table.tableRecord[i][21] << std::endl;
+		std::cout << "Useful: " << table.tableRecord[i][22] << std::endl;
+		std::cout << "Funny: " << table.tableRecord[i][23] << std::endl;
+		std::cout << "Cool: " << table.tableRecord[i][24] << std::endl;
+		std::cout << "Type: " << table.tableRecord[i][25] << std::endl;
+		std::cout << std::endl;
 	}
 }
 
 void showUserReviews(Table table) {
 	for (unsigned int i = 0; i < table.tableRecord.size(); i++) {
-		std::cout << "Review ID: " << table.tableRecord[i][15] << std::endl;
-		std::cout << "Business ID: " << table.tableRecord[i][17] << std::endl;
-		std::cout << "Stars: " << table.tableRecord[i][18] << std::endl;
-		std::cout << "Date: " << table.tableRecord[i][19] << std::endl;
-		std::cout << "Text: " << table.tableRecord[i][20] << std::endl;
-		std::cout << "Useful: " << table.tableRecord[i][21] << std::endl;
-		std::cout << "Funny: " << table.tableRecord[i][22] << std::endl;
-		std::cout << "Cool: " << table.tableRecord[i][23] << std::endl;
-		std::cout << "Type: " << table.tableRecord[i][24] << std::endl;
+		std::cout << "Review ID: " << table.tableRecord[i][23] << std::endl;
+		std::cout << "User ID: " << table.tableRecord[i][0] << std::endl;
+		std::cout << "Business ID: " << table.tableRecord[i][25] << std::endl;
+		std::cout << "Stars: " << table.tableRecord[i][26] << std::endl;
+		std::cout << "Date: " << table.tableRecord[i][27] << std::endl;
+		std::cout << "Text: " << table.tableRecord[i][28] << std::endl;
+		std::cout << "Useful: " << table.tableRecord[i][29] << std::endl;
+		std::cout << "Funny: " << table.tableRecord[i][30] << std::endl;
+		std::cout << "Cool: " << table.tableRecord[i][31] << std::endl;
+		std::cout << "Type: " << table.tableRecord[i][32] << std::endl;
+		std::cout << std::endl;
 	}
 }
 
@@ -439,8 +441,8 @@ Table crossJoin(Table tblOne, Table tblTwo) {
 	totalAttributes.insert(totalAttributes.end(), tblTwoAttributes.begin(), tblTwoAttributes.end());
 	unsigned int attributeSize = totalAttributes.size();
 	Table crossJoinTable(totalAttributes);
-	for (unsigned int i = 0; i < tblOne.getTableSize(); i++) {
-		for (unsigned int j = 0; j < tblTwo.getTableSize(); j++) {
+	for (int i = 0; i < tblOne.getTableSize(); i++) {
+		for (int j = 0; j < tblTwo.getTableSize(); j++) {
 			Record newRecord(attributeSize);
 			while (tableOneIndex < tblOneAttributes.size()) {
 				newRecord[recordIndex] = tblOne.tableRecord[i][tableOneIndex];
@@ -514,14 +516,14 @@ Table naturalJoin(Table tblOne, Table tblTwo) {
 	unsigned int attributeSize = totalAttributes.size();
 	unsigned int tblTwoElement = 0;
 	Table naturalJoinTable(totalAttributes);
-	for (unsigned int i = 0; i < tblOne.getTableSize(); i++) {
+	for ( int i = 0; i < tblOne.getTableSize(); i++) {
 		Record newRecord(attributeSize);
 		while (tableOneIndex < tblOneAttributes.size()) {
 			newRecord[recordIndex] = tblOne.tableRecord[i][tableOneIndex];
 			tableOneIndex++;
 			recordIndex++;
 		}
-		for (unsigned int j = 0; j < tblTwo.getTableSize(); j++) {
+		for (int j = 0; j < tblTwo.getTableSize(); j++) {
 			if (tblOne.tableRecord[i][tblOneAttribute] == tblTwo.tableRecord[j][tblTwoAttribute]) {
 				while (tblTwoElement < tblTwoAttributes.size()) {
 					if (tblTwoElement != tblTwoAttribute) {
@@ -596,28 +598,34 @@ int main() {
 		std::cout << "1. Show reviews for a business?" << std::endl;
 		std::cout << "2. Show reviews for a user?" << std::endl;
 		std::cin >> choiceJoin;
-		// 1
 		if (choiceJoin == 1) {
 			//Test string: 2aFiy99vNLklCx3T_tGS9A 
 			std::cout << "What is Business ID of the Business?" << std::endl;
-			std::string businessId = "2aFiy99vNLklCx3T_tGS9A";
-			//std::cin >> businessId;
-			Table crossJoinTable;
-			crossJoinTable = crossJoin(businessTable, reviewTable);
-			db.addTable("BusinessReview", crossJoinTable);
-			//Table finalTable = db.Querry("*", "BusinessReview", "BusinessID = " + businessId);
-			//showBusinessReviews(finalTable);
+			std::string businessId;
+			std::cin >> businessId;
+			Table businessReviewTable;
+			businessReviewTable = crossJoin(businessTable, reviewTable);
+			db.addTable("BusinessReview", businessReviewTable);
+			Table businessIDTable = db.Querry("*", "BusinessReview", "1BusinessID = " + businessId);
+			db.addTable("BusinessIDTable", businessIDTable);
+			Table finalTable = db.Querry("*", "BusinessIDTable", "2BusinessID = " + businessId);
+			showBusinessReviews(finalTable);
 		}
 		else if (choiceJoin == 2) {
 			//Test string: KpkOkG6RIf4Ra25Lhhxf1A 
 			std::cout << "What is User ID of the User?" << std::endl;
-			std::string userId = "KpkOkG6RIf4Ra25Lhhxf1A";
-			//std::cin >> userId;
-			Table naturalJoinTable;
-			naturalJoinTable = naturalJoin(userTable, reviewTable);
-			db.addTable("UserReview", naturalJoinTable);
-			//Table finalTable = db.Querry("*", "UserReview", "UserID = " + userId);
-			//showUserReviews(finalTable);
+			std::string userId;
+			std::cin >> userId;
+			Table userReviewTable;
+			userReviewTable = crossJoin(userTable, reviewTable);
+			db.addTable("UserReview", userReviewTable);
+			Table userIDTable = db.Querry("*", "UserReview", "1UserID = " + userId);
+			db.addTable("UserIDTable", userIDTable);
+			Table finalTable = db.Querry("*", "UserIDTable", "2UserID = " + userId);
+			showUserReviews(finalTable);
+		}
+		else {
+			std::cout << "You have entered the wrong code!" << std::endl;
 		}
 	}
 	else if (choice == "DR") {
@@ -640,7 +648,7 @@ int main() {
 			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 5.000000");
 		}
 
-		for (int i = 0; i < query.tableRecord.size(); i++) {
+		for (unsigned int i = 0; i < query.tableRecord.size(); i++) {
 			Record rd = query.tableRecord[i];
 
 			for (int j = 0; j < rd.getRecordSize(); j++) {
