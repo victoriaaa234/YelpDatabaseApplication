@@ -567,277 +567,347 @@ int main() {
 
 	std::cout << "Welcome to the Yelp Database Application!" << std::endl;
 
-	std::string again = "y";
+	std::string choice;
+	std::cout << "What would you like to do?" << std::endl;
+	std::cout << "DU: Display User Information" << std::endl;
+	std::cout << "DB: Display Business Information" << std::endl;
+	std::cout << "C: Combine Information from Two Tables" << std::endl;
+	std::cout << "DR: Display all Businesses with a Certain Rating" << std::endl;
+	std::cout << "DSBR: Display Summary for Business Ratings" << std::endl;
+	std::cout << "DSUR: Display Reviews by Name" << std::endl;
+	std::cout << "RRU: Display Businesses Below a Certain Ranking" << std::endl;
+	std::cout << "RRL: Display Businesses Above a Certain Ranking" << std::endl;
+	std::cout << "BS: Display Businesses by State" << std::endl;
+	std::cout << "BC: Display Businesses by City" << std::endl;
+	std::cout << "MF: Get user with maximum friends." << std::endl;
+	std::cout << "MR: Get length of the longest review." << std::endl;
+	std::cout << "COOL: Display coolest users" << std::endl;
+	std::cout << "OLD: Display oldest user on Yelp" << std::endl;
+	std::cout << "LR: Longest review from a user" << std::endl;
 
-	while (again == "y") {
+	std::cin.clear();
+	std::cin >> choice;
+	std::cin.ignore(100, '\n');
 
-		std::string choice;
-		std::cout << "What would you like to do?" << std::endl;
-		std::cout << "DU: Display User Information" << std::endl;
-		std::cout << "DB: Display Business Information" << std::endl;
-		std::cout << "C: Combine Information from Two Tables" << std::endl;
-		std::cout << "DR: Display all Businesses with a Certain Rating" << std::endl;
-		std::cout << "DSBR: Display Summary for Business Ratings" << std::endl;
-		std::cout << "DSUR: Display Reviews by Name" << std::endl;
-		std::cout << "RRU: Display Businesses Below a Certain Ranking" << std::endl;
-		std::cout << "RRL: Display Businesses Above a Certain Ranking" << std::endl;
-		std::cout << "BS: Display Businesses by State" << std::endl;
-		std::cout << "BC: Display Businesses by City" << std::endl;
-		std::cout << "MF: Get user with maximum friends." << std::endl;
-		std::cout << "MR: Get length of the longest review." << std::endl;
-
-		std::cin.clear();
-		std::cin >> choice;
-		std::cin.ignore(100, '\n');
-		if (choice == "DU") {
-			std::cout << "What is User ID of the User?" << std::endl;
-			std::string userId;
-			std::cin >> userId;
-			//Test string: KpkOkG6RIf4Ra25Lhhxf1A
-			Table table = db.Querry("*", "User", "UserID = " + userId);
-			displayUserInfo(table);
-		}
-		else if (choice == "DB") {
+	if (choice == "DU") {
+		std::cout << "What is User ID of the User?" << std::endl;
+		std::string userId;
+		std::cin >> userId;
+		//Test string: KpkOkG6RIf4Ra25Lhhxf1A
+		Table table = db.Querry("*", "User", "UserID = " + userId);
+		displayUserInfo(table);
+	}
+	else if (choice == "DB") {
+		std::cout << "What is Business ID of the Business?" << std::endl;
+		std::string businessId;
+		std::cin >> businessId;
+		//Test string: 2aFiy99vNLklCx3T_tGS9A 
+		Table table = db.Querry("*", "Business", "BusinessID = " + businessId);
+		displayBusinessInfo(table);
+	}
+	else if (choice == "C") {
+		int choiceJoin;
+		std::cout << "Do you want to: " << std::endl;
+		std::cout << "1. Show reviews for a business?" << std::endl;
+		std::cout << "2. Show reviews for a user?" << std::endl;
+		std::cin >> choiceJoin;
+		if (choiceJoin == 1) {
+			//Test string: 2aFiy99vNLklCx3T_tGS9A 
 			std::cout << "What is Business ID of the Business?" << std::endl;
 			std::string businessId;
 			std::cin >> businessId;
+			Table businessReviewTable;
+			businessReviewTable = crossJoin(businessTable, reviewTable);
+			db.addTable("BusinessReview", businessReviewTable);
+			Table businessIDTable = db.Querry("*", "BusinessReview", "1BusinessID = " + businessId);
+			db.addTable("BusinessIDTable", businessIDTable);
+			Table finalTable = db.Querry("*", "BusinessIDTable", "2BusinessID = " + businessId);
+			showBusinessReviews(finalTable);
+		}
+		else if (choiceJoin == 2) {
+			//Test string: KpkOkG6RIf4Ra25Lhhxf1A 
+			std::cout << "What is User ID of the User?" << std::endl;
+			std::string userId;
+			std::cin >> userId;
+			Table table = db.Querry("*", "User", "UserID = " + userId);
+			displayUserInfo(table);
+		}
+	}
+	else if (choice == "DB") {
+		std::cout << "What is Business ID of the Business?" << std::endl;
+		std::string businessId;
+		std::cin >> businessId;
+		//Test string: 2aFiy99vNLklCx3T_tGS9A 
+		Table table = db.Querry("*", "Business", "BusinessID = " + businessId);
+		displayBusinessInfo(table);
+	}
+	else if (choice == "C") {
+		int choiceJoin;
+		std::cout << "Do you want to: " << std::endl;
+		std::cout << "1. Show reviews for a business?" << std::endl;
+		std::cout << "2. Show reviews for a user?" << std::endl;
+		std::cin >> choiceJoin;
+		if (choiceJoin == 1) {
 			//Test string: 2aFiy99vNLklCx3T_tGS9A 
-			Table table = db.Querry("*", "Business", "BusinessID = " + businessId);
-			displayBusinessInfo(table);
+			std::cout << "What is Business ID of the Business?" << std::endl;
+			std::string businessId;
+			std::cin >> businessId;
+			Table businessReviewTable;
+			businessReviewTable = crossJoin(businessTable, reviewTable);
+			db.addTable("BusinessReview", businessReviewTable);
+			Table businessIDTable = db.Querry("*", "BusinessReview", "1BusinessID = " + businessId);
+			db.addTable("BusinessIDTable", businessIDTable);
+			Table finalTable = db.Querry("*", "BusinessIDTable", "2BusinessID = " + businessId);
+			showBusinessReviews(finalTable);
 		}
-		else if (choice == "C") {
-			int choiceJoin;
-			std::cout << "Do you want to: " << std::endl;
-			std::cout << "1. Show reviews for a business?" << std::endl;
-			std::cout << "2. Show reviews for a user?" << std::endl;
-			std::cin >> choiceJoin;
-			if (choiceJoin == 1) {
-				//Test string: 2aFiy99vNLklCx3T_tGS9A 
-				std::cout << "What is Business ID of the Business?" << std::endl;
-				std::string businessId;
-				std::cin >> businessId;
-				Table businessReviewTable;
-				businessReviewTable = crossJoin(businessTable, reviewTable);
-				db.addTable("BusinessReview", businessReviewTable);
-				Table businessIDTable = db.Querry("*", "BusinessReview", "1BusinessID = " + businessId);
-				db.addTable("BusinessIDTable", businessIDTable);
-				Table finalTable = db.Querry("*", "BusinessIDTable", "2BusinessID = " + businessId);
-				showBusinessReviews(finalTable);
-			}
-			else if (choiceJoin == 2) {
-				//Test string: KpkOkG6RIf4Ra25Lhhxf1A 
-				std::cout << "What is User ID of the User?" << std::endl;
-				std::string userId;
-				std::cin >> userId;
-				Table userReviewTable;
-				userReviewTable = crossJoin(userTable, reviewTable);
-				db.addTable("UserReview", userReviewTable);
-				Table userIDTable = db.Querry("*", "UserReview", "1UserID = " + userId);
-				db.addTable("UserIDTable", userIDTable);
-				Table finalTable = db.Querry("*", "UserIDTable", "2UserID = " + userId);
-				showUserReviews(finalTable);
-			}
-			else {
-				std::cout << "You have entered the wrong code!" << std::endl;
-			}
-		}
-		else if (choice == "DR") {
-			std::cout << "Select an option from 1-5: ";
-			int number;
-			std::cin >> number;
-
-			Table query;
-			switch (number) {
-			case 1:
-				query = db.Querry("Name, City, State, Hours", "Business", "Stars = 1.000000");
-				break;
-			case 2:
-				query = db.Querry("Name, City, State, Hours", "Business", "Stars = 2.000000");
-				break;
-			case 3:
-				query = db.Querry("Name, City, State, Hours", "Business", "Stars = 3.000000");
-				break;
-			case 4:
-				query = db.Querry("Name, City, State, Hours", "Business", "Stars = 4.000000");
-				break;
-			case 5:
-				query = db.Querry("Name, City, State, Hours", "Business", "Stars = 5.000000");
-				break;
-			}
-
-			for (unsigned int i = 0; i < query.tableRecord.size(); i++) {
-				Record rd = query.tableRecord[i];
-				std::cout << "Name: " << rd[0] << std::endl;
-				std::cout << "City: " << rd[1] << std::endl;
-				std::cout << "State: " << rd[2] << std::endl;
-				std::cout << "Hours: " << rd[3] << std::endl;
-				std::cout << std::endl;
-			}
-		}
-		else if (choice == "DSUR") {
-			std::cout << "Get all reviews by reviewer name: ";
-			std::string username;
-			std::getline(std::cin, username);
-
-			std::vector<Table> allTables = db.getTables();
-			Table usernames = allTables[1];
-			usernames.specifyKey("UserID");
-			Table reviews = allTables[2];
-			Table tb = naturalJoin(reviews, usernames);
-
-			for (Record rd : tb.tableRecord) {
-				if (rd[1] == username) {
-					std::cout << "Name: " << rd[1] << std::endl;
-					std::cout << "Review Count: " << rd[2] << std::endl;
-					std::cout << "Text: " << rd[27] << std::endl;
-					std::cout << std::endl;
-				}
-			}
-		}
-		else if (choice == "DSBR") {
-			std::cout << "Enter a business name: ";
-			std::string str;
-			std::getline(std::cin, str);
-
-			/* The given database does not provide working query functionality and leaves all records public.
-				Utilizing the improper implementation to the best of our ability, manually searching for the proper business name.
-				Grab business ID after and then match with the reviews for matching business IDs.
-			*/
-			std::vector<Table> allTables = db.getTables();
-			Table businesses = allTables[0];
-
-			Table desiredBusiness(businesses.getAttributeNames());
-			for (Record rd : businesses.tableRecord) {
-				if (rd[1] == str) {
-					desiredBusiness.insertRecord(rd);
-					break;
-				}
-			}
-
-			if (desiredBusiness.getTableSize() == 1) {
-				Record rd = desiredBusiness.tableRecord[0];
-
-				std::string businessID = rd[0];
-
-				Table reviewsForIDOnly = db.Querry("BusinessID, Stars, Date", "Review", "BusinessID = " + businessID);
-				std::tuple<std::string, std::string, std::string> t = reviewsForIDOnly.findRoutine("Stars");
-
-				std::cout << "Business: " << str << std::endl;
-				std::cout << "Number of Ratings: " << std::get<0>(t) << std::endl;
-				std::cout << "Lowest Rating: " << std::get<2>(t) << std::endl;
-				std::cout << "Maximum Rating: " << std::get<1>(t) << std::endl;
-				std::cout << std::endl;
-			}
-		}
-		else if (choice == "RRU") {
-			double upperBound = 0.00;
-			std::cout << "Upper bound: ";
-			std::cin >> upperBound;
-			if (upperBound < 0.00 || upperBound > 5.00) {
-				std::cout << "Invalid.";
-				return 1;
-			}
-
-			std::cout << "Searching for stars: 0.00 to " << upperBound << "." << std::endl;
-
-			Table tb = db.Querry("*", "Business", "Stars <= " + std::to_string(upperBound));
-			std::cout << tb.tableRecord.size() << std::endl;
-		}
-		else if (choice == "RRL") {
-			double lowerBound = 0.00;
-			std::cout << "Lower bound: ";
-			std::cin >> lowerBound;
-			if (lowerBound < 0.00 || lowerBound > 5.00) {
-				std::cout << "Invalid.";
-				return 1;
-			}
-			std::cout << "Searching for stars: " << lowerBound << " to  5.0 " << std::endl;
-
-			Table tb = db.Querry("*", "Business", "Stars >= " + std::to_string(lowerBound));
-			std::cout << tb.tableRecord.size() << std::endl;
-		}
-		else if (choice == "BS") {
-			std::cout << "Enter state abbreviation: ";
-			std::string state;
-			std::cin >> state;
-			if (state.length() != 2) return 1;
-
-			Table tb = db.Querry("*", "Business", "State = " + state);
-			for (Record rd : tb.tableRecord) {
-				std::cout << "Name: " << rd[1];
-				std::cout << " Address: " << rd[3];
-				std::cout << " City: " << rd[4] << std::endl;
-			}
-		}
-		else if (choice == "BC") {
-			std::cout << "Enter city: ";
-			std::string city;
-			std::cin >> city;
-
-			Table tb = db.getTables()[0];
-			for (Record rd : tb.tableRecord) {
-				if (rd[4] == city) {
-					std::cout << "Name: " << rd[1];
-					std::cout << " Address: " << rd[3];
-					std::cout << std::endl;
-				}
-			}
-		}
-		else if (choice == "MF") {
-			Table users = db.getTables()[2];
-
-			int numberOfFriends = 0;
-			std::string username;
-			for (Record rd : users.tableRecord) {
-				std::string friendsList = rd[4];
-				size_t n = std::count(friendsList.begin(), friendsList.end(), ',');
-				if (n > numberOfFriends) {
-					username = rd[1];
-					numberOfFriends = n;
-				}
-			}
-			std::cout << "Username: " << username << " has the most friends! With " << numberOfFriends << " number of friends!" << std::endl;
-		}
-		else if (choice == "MR") {
-			Table users = db.getTables()[1];
-
-			int lengthOfReview = 0;
-			for (Record rd : users.tableRecord) {
-				std::string review = rd[5];
-				if (review.length() > lengthOfReview) {
-					lengthOfReview = review.length();
-				}
-			}
-			std::cout << "The longest review has " << lengthOfReview << " characters." << std::endl;
+		else if (choiceJoin == 2) {
+			//Test string: KpkOkG6RIf4Ra25Lhhxf1A 
+			std::cout << "What is User ID of the User?" << std::endl;
+			std::string userId;
+			std::cin >> userId;
+			Table userReviewTable;
+			userReviewTable = crossJoin(userTable, reviewTable);
+			db.addTable("UserReview", userReviewTable);
+			Table userIDTable = db.Querry("*", "UserReview", "1UserID = " + userId);
+			db.addTable("UserIDTable", userIDTable);
+			Table finalTable = db.Querry("*", "UserIDTable", "2UserID = " + userId);
+			showUserReviews(finalTable);
 		}
 		else {
-
+			std::cout << "You have entered the wrong code!" << std::endl;
 		}
-		std::cout << "Again? " << std::endl;
-		std::cin >> again;
-		
+	}
+	else if (choice == "DR") {
+		std::cout << "Select an option from 1-5: ";
+		int number;
+		std::cin >> number;
+
+		Table query;
+		switch (number) {
+		case 1:
+			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 1.000000");
+			break;
+		case 2:
+			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 2.000000");
+			break;
+		case 3:
+			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 3.000000");
+			break;
+		case 4:
+			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 4.000000");
+			break;
+		case 5:
+			query = db.Querry("Name, City, State, Hours", "Business", "Stars = 5.000000");
+			break;
+		}
+
+		for (unsigned int i = 0; i < query.tableRecord.size(); i++) {
+			Record rd = query.tableRecord[i];
+			std::cout << "Name: " << rd[0] << std::endl;
+			std::cout << "City: " << rd[1] << std::endl;
+			std::cout << "State: " << rd[2] << std::endl;
+			std::cout << "Hours: " << rd[3] << std::endl;
+			std::cout << std::endl;
+		}
+	}
+	else if (choice == "DSUR") {
+		std::cout << "Get all reviews by reviewer name: ";
+		std::string username;
+		std::getline(std::cin, username);
+
+		std::vector<Table> allTables = db.getTables();
+		Table usernames = allTables[1];
+		usernames.specifyKey("UserID");
+		Table reviews = allTables[2];
+		Table tb = naturalJoin(reviews, usernames);
+
+		for (Record rd : tb.tableRecord) {
+			if (rd[1] == username) {
+				std::cout << "Name: " << rd[1] << std::endl;
+				std::cout << "Review Count: " << rd[2] << std::endl;
+				std::cout << "Text: " << rd[27] << std::endl;
+				std::cout << std::endl;
+			}
+		}
+	}
+	else if (choice == "DSBR") {
+		std::cout << "Enter a business name: ";
+		std::string str;
+		std::getline(std::cin, str);
+
+		/* The given database does not provide working query functionality and leaves all records public.
+			Utilizing the improper implementation to the best of our ability, manually searching for the proper business name.
+			Grab business ID after and then match with the reviews for matching business IDs.
+		*/
+		std::vector<Table> allTables = db.getTables();
+		Table businesses = allTables[0];
+
+		Table desiredBusiness(businesses.getAttributeNames());
+		for (Record rd : businesses.tableRecord) {
+			if (rd[1] == str) {
+				desiredBusiness.insertRecord(rd);
+				break;
+			}
+		}
+
+		if (desiredBusiness.getTableSize() == 1) {
+			Record rd = desiredBusiness.tableRecord[0];
+
+			std::string businessID = rd[0];
+
+			Table reviewsForIDOnly = db.Querry("BusinessID, Stars, Date", "Review", "BusinessID = " + businessID);
+			std::tuple<std::string, std::string, std::string> t = reviewsForIDOnly.findRoutine("Stars");
+
+			std::cout << "Business: " << str << std::endl;
+			std::cout << "Number of Ratings: " << std::get<0>(t) << std::endl;
+			std::cout << "Lowest Rating: " << std::get<2>(t) << std::endl;
+			std::cout << "Maximum Rating: " << std::get<1>(t) << std::endl;
+			std::cout << std::endl;
+		}
+	}
+	else if (choice == "RRU") {
+		double upperBound = 0.00;
+		std::cout << "Upper bound: ";
+		std::cin >> upperBound;
+		if (upperBound < 0.00 || upperBound > 5.00) {
+			std::cout << "Invalid.";
+			return 1;
+		}
+
+		std::cout << "Searching for stars: 0.00 to " << upperBound << "." << std::endl;
+
+		Table tb = db.Querry("*", "Business", "Stars <= " + std::to_string(upperBound));
+		std::cout << tb.tableRecord.size() << std::endl;
+	}
+	else if (choice == "RRL") {
+		double lowerBound = 0.00;
+		std::cout << "Lower bound: ";
+		std::cin >> lowerBound;
+		if (lowerBound < 0.00 || lowerBound > 5.00) {
+			std::cout << "Invalid.";
+			return 1;
+		}
+		std::cout << "Searching for stars: " << lowerBound << " to  5.0 " << std::endl;
+
+		Table tb = db.Querry("*", "Business", "Stars >= " + std::to_string(lowerBound));
+		std::cout << tb.tableRecord.size() << std::endl;
+	}
+	else if (choice == "BS") {
+		std::cout << "Enter state abbreviation: ";
+		std::string state;
+		std::cin >> state;
+		if (state.length() != 2) return 1;
+
+		Table tb = db.Querry("*", "Business", "State = " + state);
+		for (Record rd : tb.tableRecord) {
+			std::cout << "Name: " << rd[1];
+			std::cout << " Address: " << rd[3];
+			std::cout << " City: " << rd[4] << std::endl;
+		}
+	}
+	else if (choice == "BC") {
+		std::cout << "Enter city: ";
+		std::string city;
+		std::cin >> city;
+
+		Table tb = db.getTables()[0];
+		for (Record rd : tb.tableRecord) {
+			if (rd[4] == city) {
+				std::cout << "Name: " << rd[1];
+				std::cout << " Address: " << rd[3];
+				std::cout << std::endl;
+			}
+		}
+	}
+	else if (choice == "MF") {
+		Table users = db.getTables()[2];
+
+		int numberOfFriends = 0;
+		std::string username;
+		for (Record rd : users.tableRecord) {
+			std::string friendsList = rd[4];
+			size_t n = std::count(friendsList.begin(), friendsList.end(), ',');
+			if (n > numberOfFriends) {
+				username = rd[1];
+				numberOfFriends = n;
+			}
+		}
+		std::cout << "Username: " << username << " has the most friends! With " << numberOfFriends << " number of friends!" << std::endl;
+	}
+	else if (choice == "MR") {
+		Table users = db.getTables()[1];
+
+		int lengthOfReview = 0;
+		for (Record rd : users.tableRecord) {
+			std::string review = rd[5];
+			if (review.length() > lengthOfReview) {
+				lengthOfReview = review.length();
+			}
+		}
+		std::cout << "The longest review has " << lengthOfReview << " characters." << std::endl;
+	}
+
+	else if (choice == "RRL") {
+		double lowerBound = 0.00;
+		std::cout << "Lower bound: ";
+		std::cin >> lowerBound;
+		if (lowerBound < 0.00 || lowerBound > 5.00) {
+			std::cout << "Invalid.";
+			return 1;
+		}
+		std::cout << "Searching for stars: " << lowerBound << " to  5.0 " << std::endl;
+
+		Table tb = db.Querry("*", "Business", "Stars >= " + std::to_string(lowerBound));
+		std::cout << tb.tableRecord.size() << std::endl;
+	}
+	else if (choice == "COOL") {
+		std::tuple<std::string, std::string, std::string> t = userTable.findRoutine("Cool");
+		std::cout << "Coolest Rating: " << std::get<1>(t) << std::endl;
+		Table tb = db.Querry("*", "User", "Cool = " + std::get<1>(t));
+
+		for (Record rd : tb.tableRecord) {
+			std::cout << "Name: " << rd[1] << std::endl;
+			std::cout << "Review Count: " << rd[2] << std::endl;
+			std::cout << "Yelping Since: " << rd[3] << std::endl;
+			std::cout << std::endl;
+		}
+	}
+	else if (choice == "OLD") {
+		std::tuple<std::string, std::string, std::string> t = userTable.findRoutine("YelpingSince");
+		std::cout << "Oldest User: " << std::get<2>(t) << std::endl;
+		Table tb = db.Querry("*", "User", "YelpingSince = " + std::get<2>(t));
+
+		for (Record rd : tb.tableRecord) {
+			std::cout << "Name: " << rd[1] << std::endl;
+			std::cout << "Review Count: " << rd[2] << std::endl;
+			std::cout << std::endl;
+		}
+	}
+	else if (choice == "LR") {
+		//Test string: KpkOkG6RIf4Ra25Lhhxf1A
+		std::cout << "What is User ID of the User?" << std::endl;
+		std::string userId = "KpkOkG6RIf4Ra25Lhhxf1A";
+		std::cin >> userId;
+		Table userReviewTable;
+		userReviewTable = crossJoin(userTable, reviewTable);
+		db.addTable("UserReview", userReviewTable);
+		Table userIDTable = db.Querry("*", "UserReview", "1UserID = " + userId);
+		db.addTable("UserIDTable", userIDTable);
+		Table finalTable = db.Querry("*", "UserIDTable", "2UserID = " + userId);
+		unsigned int maximum = 0;
+		std::string maximumString = "";
+		for (Record rd : finalTable.tableRecord) {
+			if (rd[28].length() > maximum) {
+				maximum = rd[28].length();
+				maximumString = rd[28];
+			}
+		}
+		std::cout << "The longest review for this user is: " << maximum << " characters." << std::endl;
+		std::cout << "The review: " << maximumString << std::endl;
+	}
+	else {
+		std::cout << "Wrong code!" << std::endl;
 	}
 	
-		/*std::cin.clear();
-		std::cin.ignore(100, '\n');
-		std::cout << "Again?";
-		std::cin >> again;*/
-	//}
-		//std::cout << "Again? " << std::endl;
-		//std::cin >> again;
-	//} while (again == "Y");
-	
-	// Display business with range of ratings from x to x.
-	// Summary information about reviews/users for a business.
-	// Favorite business from a user
-	// Display user with the most number of reviews
-	// Display user with the minimum number of reviews
-	// Coolest user
-	// Oldest user
-	// business search by state
-	// business search by city
-	// User with the most number of friends.
-	// Longest review from a user
-
 	return 0;
 }
