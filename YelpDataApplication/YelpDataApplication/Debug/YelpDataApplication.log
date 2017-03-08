@@ -1,2 +1,4 @@
-﻿  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
+﻿cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+  Application.cpp
+  YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.exe
   YelpDataApplication.vcxproj -> C:\Users\Kevin J Nguyen\Desktop\CSCE-315-Database-Project\YelpDataApplication\Debug\YelpDataApplication.pdb (Full PDB)

@@ -542,6 +542,8 @@ Table naturalJoin(Table tblOne, Table tblTwo) {
 	}
 	return naturalJoinTable;
 }
+
+
 int main() {
 
 	std::string businessJSONFilename = "business.json";
@@ -713,12 +715,34 @@ int main() {
 			std::cout << "Lowest Rating: " << std::get<2>(t) << std::endl;
 			std::cout << "Maximum Rating: " << std::get<1>(t) << std::endl;
 		}
-		else {
-			std::cout << "Unable to find a business with that name." << std::endl;
-		}
-	}
-	else {
+		else if (choice == "DSUR") {
+			std::cout << "Enter a user ID: ";
+			std::string str;
+			std::getline(std::cin, str);
+			Table userName = db.Querry("*", "User", "UserID = KpkOkG6RIf4Ra25Lhhxf1A");
 
+			if (userName.getTableSize() > 0) {
+				Record rd = userName.tableRecord[0];
+
+				//std::string businessID = rd[0];
+				std::string userID = "KpkOkG6RIf4Ra25Lhhxf1A";
+
+				Table reviewsForIDOnly = db.Querry("BusinessID, Stars, Date", "Review", "BusinessID = 2LfIuF3_sX6uwe-IR-P0jQ");
+				std::cout << reviewsForIDOnly.tableRecord.size() << std::endl;
+				std::tuple<std::string, std::string, std::string> t = reviewsForIDOnly.findRoutine("Stars");
+
+				std::cout << "Restaurant: " << str << std::endl;
+				std::cout << "Number of Ratings: " << std::get<0>(t) << std::endl;
+				std::cout << "Lowest Rating: " << std::get<1>(t) << std::endl;
+				std::cout << "Maximum Rating: " << std::get<2>(t) << std::endl;
+			}
+			else {
+				std::cout << "Unable to find a business with that name." << std::endl;
+			}
+		}
+		else {
+
+		}
 	}
 		/*std::cin.clear();
 		std::cin.ignore(100, '\n');
@@ -731,7 +755,17 @@ int main() {
 	
 	// Display business with range of ratings from x to x.
 	// Summary of reviews and compliments for a user.
-	// Summary informationa bout reviews/users for a business.
+	// Summary information about reviews/users for a business.
 	// Table for 5 star/4/3/2/1
+	// Favorite business from a user
+	// Display user with the most number of reviews
+	// Display user with the minimum number of reviews
+	// Coolest user
+	// Oldest user
+	// business search by state
+	// business search by city
+	// User with the most number of friends.
+	// Longest review from a user
+
 	return 0;
 }
